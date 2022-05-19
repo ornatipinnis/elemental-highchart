@@ -1,0 +1,34 @@
+{
+    "name": "aetchell/elemental-highchart",
+    "type": "silverstripe-vendormodule",
+    "description": "Add Highcharts and Highcharts Stock objects to your pages inside Elemental blocks",
+    "keywords": [
+        "silverstripe",
+        "elemental",
+        "highchart"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Ash Etchell",
+            "homepage": "https://github.com/aetchell",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "silverstripe/cms": "^4",
+        "silverstripe/framework": "^4",
+        "dnadesign/silverstripe-elemental": "^4",
+        "silverstripe/display-logic": "^2.0"        
+    },
+    "config": {
+        "process-timeout": 600
+    },
+    "extra": {
+        "expose": [
+            "client"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
