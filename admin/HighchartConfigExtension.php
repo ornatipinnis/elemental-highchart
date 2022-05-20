@@ -23,7 +23,12 @@ namespace aetchell\Elemental\Blocks {
             $HighchartAllPages = CheckboxField::create('HighchartLibraryAllPages', 'Use Highcharts libraries on all pages?');
             $HighchartAllPages->setDescription('Do you want to include the libraries on all pages or just the ones that use the Highcharts block? This is useful if you use other Highcharts integrations on your site.');
 
-            $HighchartLibs = CheckboxSetField::create('HighchartLibs', 'Which libraries to include', ['chart' => 'Highcharts', 'stock' => 'Highcharts Stock', 'maps' => 'Highcharts Maps', 'gantt' => 'Highcharts Gantt']);
+            $HighchartLibs = CheckboxSetField::create('HighchartLibs', 'Which libraries to include', [
+                'chart' => 'Highcharts', 
+                'stock' => 'Highcharts Stock', 
+                //'maps' => 'Highcharts Maps', 
+                //'gantt' => 'Highcharts Gantt'
+            ]);
             $HighchartLibs->setDescription('Which libraries do you want to include on all pages?');
 
             $fields->addFieldToTab('Root.Highcharts', $HighchartAllPages);
