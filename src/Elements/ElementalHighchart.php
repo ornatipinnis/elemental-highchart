@@ -132,7 +132,7 @@ namespace aetchell\Highcharts\Elemental {
          */
         public function chartConfig() {
             $chart = (object) [
-                        'chart' => ['type' => $this->DefaultSeries, 'animation' => true,'styledMode' => true],
+                        'chart' => ['type' => $this->DefaultSeries, 'animation' => true],
                         'credits' => ['enabled' => false],
                         'title' => ['text' => $this->ChartTitle],
                         'tooltip' => [
