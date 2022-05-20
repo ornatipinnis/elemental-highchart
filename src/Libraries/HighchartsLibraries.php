@@ -88,8 +88,7 @@ namespace aetchell\Highcharts\Libraries {
             foreach ($HighchartsJSRequire as $HcJS) {
                 Requirements::javascript(implode('/', $HcJS), ['defer' => true]);
             }
-            //Requirements::css('aetchell/silverstripe-admin-edit-link:client/css/EditLink.css');
-            Requirements::set_force_js_to_bottom(true);
+            //Requirements::set_force_js_to_bottom(true);
             Requirements::css('aetchell/elemental-highchart:client/css/HighchartElemental.css');
         }
 
