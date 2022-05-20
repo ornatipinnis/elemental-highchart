@@ -59,124 +59,48 @@
  **/
 
 /**
-.highcharts-point.highcharts-color-0,
-.highcharts-legend-item.highcharts-color-0 .highcharts-point,
-.highcharts-tooltip .highcharts-color-0 {
+.highcharts-color-0 {
     fill: #7cb5ec;
 }
 
-.highcharts-tooltip.highcharts-color-0,
-.highcharts-data-label-connector.highcharts-color-0 {
-    stroke: #7cb5ec;
-}
 
-.highcharts-point.highcharts-color-1,
-.highcharts-legend-item.highcharts-color-1 .highcharts-point,
-.highcharts-tooltip .highcharts-color-1 {
+.highcharts-color-1 {
     fill: #046b94;
 }
 
-.highcharts-tooltip.highcharts-color-1,
-.highcharts-data-label-connector.highcharts-color-1 {
-    stroke: #046b94;
-}
-
-.highcharts-point.highcharts-color-2,
-.highcharts-legend-item.highcharts-color-2 .highcharts-point,
-.highcharts-tooltip .highcharts-color-2 {
+.highcharts-color-2 {
     fill: #53ab57;
 }
 
-.highcharts-tooltip.highcharts-color-2,
-.highcharts-data-label-connector.highcharts-color-2 {
-    stroke: #53ab57;
-}
-
-.highcharts-point.highcharts-color-3,
-.highcharts-legend-item.highcharts-color-3 .highcharts-point,
-.highcharts-tooltip .highcharts-color-3 {
+.highcharts-color-3 {
     fill: #1283b0;
 }
 
-.highcharts-tooltip.highcharts-color-3,
-.highcharts-data-label-connector.highcharts-color-3 {
-    stroke: #1283b0;
-}
-
-.highcharts-point.highcharts-color-4,
-.highcharts-legend-item.highcharts-color-4 .highcharts-point,
-.highcharts-tooltip .highcharts-color-4 {
+.highcharts-color-4 {
     fill: #9a7a5b;
 }
 
-.highcharts-tooltip.highcharts-color-4,
-.highcharts-data-label-connector.highcharts-color-4 {
-    stroke: #9a7a5b;
-}
-
-.highcharts-point.highcharts-color-5,
-.highcharts-legend-item.highcharts-color-5 .highcharts-point,
-.highcharts-tooltip .highcharts-color-5 {
+.highcharts-color-5 {
     fill: #67a7bf;
 }
 
-.highcharts-tooltip.highcharts-color-5,
-.highcharts-data-label-connector.highcharts-color-5 {
-    stroke: #67a7bf;
-}
-
-.highcharts-point.highcharts-color-6,
-.highcharts-legend-item.highcharts-color-6 .highcharts-point,
-.highcharts-tooltip .highcharts-color-6 {
+.highcharts-color-6 {
     fill: #9fba4d;
 }
 
-.highcharts-tooltip.highcharts-color-6,
-.highcharts-data-label-connector.highcharts-color-6 {
-    stroke: #9fba4d;
-}
-
-.highcharts-point.highcharts-color-7,
-.highcharts-legend-item.highcharts-color-7 .highcharts-point,
-.highcharts-tooltip .highcharts-color-7 {
+.highcharts-color-7 {
     fill: #50a4a5;
 }
 
-.highcharts-tooltip.highcharts-color-7,
-.highcharts-data-label-connector.highcharts-color-7 {
-    stroke: #50a4a5;
-}
-
-.highcharts-point.highcharts-color-8,
-.highcharts-legend-item.highcharts-color-8 .highcharts-point,
-.highcharts-tooltip .highcharts-color-8 {
+.highcharts-color-8 {
     fill: #d09861;
 }
 
-.highcharts-tooltip.highcharts-color-8,
-.highcharts-data-label-connector.highcharts-color-8 {
-    stroke: #d09861;
-}
-
-.highcharts-point.highcharts-color-9,
-.highcharts-legend-item.highcharts-color-9 .highcharts-point,
-.highcharts-tooltip .highcharts-color-9 {
+.highcharts-color-9 {
     fill: #fcad30;
 }
 
-.highcharts-tooltip.highcharts-color-9,
-.highcharts-data-label-connector.highcharts-color-9 {
-    stroke: #fcad30;
-}
-
-.highcharts-point.highcharts-color-10,
-.highcharts-legend-item.highcharts-color-10 .highcharts-point,
-.highcharts-tooltip .highcharts-color-10 {
+.highcharts-color-10 {
     fill: #f13d0c;
-}
-
-.highcharts-tooltip.highcharts-color-10,
-.highcharts-data-label-connector.highcharts-color-10 {
-    stroke: #f13d0c;
 }
 **/

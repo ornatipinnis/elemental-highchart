@@ -17,19 +17,7 @@
                             chartInst{$ID} = Highcharts.{$getLibTypeClass}(
                                 'elemental-highchart{$ID}',
                                 $chartConfig.RAW
-                            );
-                    
-                            <% if $DefaultSeries == 'pie' %>
-                            chartInst{$ID}.update({
-                                data : {
-                                    parsed: function(columns) {
-                // Keep the first item which is the series name, then remove the following 70
-                console.log(columns[0]);                                      
-                                    }
-                                }
-                            });
-                            <% end_if %>
-                    
+                            );                   
 
                             <% if $EnableExporting %>
                             let ehcsva{$ID} = document.getElementById("eh-ehcsva-activator{$ID}");
@@ -55,6 +43,7 @@
                                 });
                             });
                             <% end_if %>
+                            window.dispatchEvent(new Event('resize'));
                         }
                     );
                 </script>
@@ -72,24 +61,6 @@
                 <% end_if %>
             </div>
 
-            <% if $AllowModal %>
-            <div class="modal fade" id="highcharts-modal{$ID}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display:none;">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="elemental-highchart-modal{$ID}" class="highchart" data-type="{$LibType}"></div>
-                            <div class="chart-caption">$ChartCaption</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <% end_if %>
         </div>
     </div>
     <% end_if %>
