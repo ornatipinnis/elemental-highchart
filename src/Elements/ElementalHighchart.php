@@ -167,7 +167,8 @@ use function _t;
             $SiteConfig = SiteConfig::current_site_config();
             
             if($SiteConfig->HighchartColours) {
-                $chart->colors = explode(',',$SiteConfig->HighchartColours);
+                echo $SiteConfig->HighchartColours;
+                $chart->colors = json_decode($SiteConfig->HighchartColours);
             }
             
             if ($this->LibType == 'stock') {
@@ -183,7 +184,7 @@ use function _t;
 
             if ($this->EnableExporting == true) {
                 $chart->exporting['enabled'] = true;
-                $chart->exporting['filename'] = preg_replace('/\s+/', '-', $this->ChartTitle).'-'.date('dmYHi');
+                $chart->exporting['filename'] = preg_replace('/\s+/', '-', ($this->ChartTitle ? $this->ChartTitle : 'chart-export')).'-'.date('dmYHi');
             }
 
             if($this->ZoomType == true) {

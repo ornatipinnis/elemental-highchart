@@ -20,6 +20,7 @@
                 </div>
                 <% end_if %>
                 <script type="application/javascript">
+                    <% include chartJS %>
                     document.addEventListener(
                         "DOMContentLoaded",
                         () => {                 
