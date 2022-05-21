@@ -168,7 +168,7 @@ use function _t;
             
             if($SiteConfig->HighchartColours !== '') {
                 echo $SiteConfig->HighchartColours;
-                $chart->colors = json_decode($SiteConfig->HighchartColours);
+                $chart->colors = explode(',', $SiteConfig->HighchartColours);
             }
             
             if ($this->LibType == 'stock') {
