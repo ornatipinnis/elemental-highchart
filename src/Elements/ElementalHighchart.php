@@ -167,7 +167,6 @@ use function _t;
             $SiteConfig = SiteConfig::current_site_config();
             
             if($SiteConfig->HighchartColours) {
-                echo $SiteConfig->HighchartColours;
                 $chart->colours = explode(',',$SiteConfig->HighchartColours);
             }
             
