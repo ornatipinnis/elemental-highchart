@@ -10,8 +10,8 @@ namespace aetchell\Highcharts\Libraries {
         private static $HighchartsURLBase = 'https://code.highcharts.com';
 
         public function Libraries($SiteConfig = false, $Extra = false) {
-
-            Requirements::javascript('aetchell/elemental-highchart:client/js/HighchartElemental.js');
+            $HighchartsJSRequire = [];
+            $HighchartsJSRequire[] = 'aetchell/elemental-highchart:client/js/HighchartElemental.js';
 
             $HighchartToUse = false;
 

@@ -7,6 +7,7 @@ namespace aetchell\Elemental\Blocks {
     use SilverStripe\Forms\DropdownField;
     use SilverStripe\Forms\FieldList;
     use SilverStripe\ORM\DataExtension;
+    use Symbiote\MultiValueField\Fields\MultiValueTextField;
 
     class HighchartConfigExtension extends DataExtension {
 
@@ -14,6 +15,7 @@ namespace aetchell\Elemental\Blocks {
             'HighchartVersionNumber' => 'Varchar(4)',
             'HighchartLibraryAllPages' => 'Boolean',
             'HighchartLibs' => 'Varchar(255)',
+            'HighchartColours' => 'MultiValueField'
         ];
 
         public function updateCMSFields(FieldList $fields) {
@@ -31,8 +33,12 @@ namespace aetchell\Elemental\Blocks {
             ]);
             $HighchartLibs->setDescription('Which libraries do you want to include on all pages?');
 
+            $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
+                    ->setAttribute('placeholder','#ff0000');
+            $HighchartColours->setDescription('Add one or more hex formatted colours to this list to use in your charts. for example "#ff0000"');
             $fields->addFieldToTab('Root.Highcharts', $HighchartAllPages);
             $fields->addFieldToTab('Root.Highcharts', $HighchartVersion);
+            $fields->addFieldToTab('Root.Highcharts', $HighchartColours);
             $fields->addFieldToTab('Root.Highcharts', $HighchartLibs);
         }
 

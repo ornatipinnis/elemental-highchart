@@ -19,7 +19,8 @@
         "silverstripe/cms": "^4",
         "silverstripe/framework": "^4",
         "dnadesign/silverstripe-elemental": "^4",
-        "silverstripe/display-logic": "^2.0"        
+        "silverstripe/display-logic": "^2.0",
+        "symbiote/silverstripe-multivaluefield": "5.x-dev"
     },
     "config": {
         "process-timeout": 600

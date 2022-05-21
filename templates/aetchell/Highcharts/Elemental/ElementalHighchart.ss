@@ -10,14 +10,51 @@
         <div class="col col-12 col-md">
             <div class="highchart-container">
                 <div id="elemental-highchart{$ID}" class="highchart" data-type="{$LibType}" style="height: {$ChartHeight}px;"></div>
+                <% if $ChartCaption || $AllowFullscreen %>
+                <div class="chart-caption">
+                    $ChartCaption                
+                </div>
+                <div class="chart-controls">
+                <% if $EnableExporting %><a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}"><i class="fa fa-table"></i> Source data</a><% end_if %>
+                <% if $AllowFullscreen %><a href="javascript:void(0);" id="eh-fs-activator{$ID}"><i class="fa fa-expand"></i> View in full screen</a><% end_if %>
+                </div>
+                <% end_if %>
                 <script type="application/javascript">
                     document.addEventListener(
                         "DOMContentLoaded",
-                        () => {
+                        () => {                 
+                            
                             chartInst{$ID} = Highcharts.{$getLibTypeClass}(
                                 'elemental-highchart{$ID}',
                                 $chartConfig.RAW
-                            );                   
+                            );
+                    
+                    chartInst{$ID}.update(
+                            {colors: [
+                    '#046b94', 
+                    '#53ab57', 
+                    '#1283b0', 
+                    '#9a7a5b', 
+                    '#67a7bf', 
+                    '#9fba4d',
+                    '#50a4a5', 
+                    '#d09861', 
+                    '#fcad30', 
+                    '#f13d0c'
+                ]}            
+                );
+                    
+                            <% if $DefaultSeries == 'pie' %>
+                            chartInst{$ID}.update({
+                                data : {
+                                    parsed: function(columns) {
+                // Keep the first item which is the series name, then remove the following 70
+                console.log(columns[0]);                                      
+                                    }
+                                }
+                            });
+                            <% end_if %>
+                    
 
                             <% if $EnableExporting %>
                             let ehcsva{$ID} = document.getElementById("eh-ehcsva-activator{$ID}");
@@ -43,24 +80,10 @@
                                 });
                             });
                             <% end_if %>
-                            window.dispatchEvent(new Event('resize'));
                         }
                     );
                 </script>
-
-                <% if $ChartCaption || $AllowFullscreen %>
-                <div class="chart-caption">
-                    $ChartCaption                
-                </div>
-                    
-                    <div   class="chart-controls">
-                    <% if $EnableExporting %><a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}"><i class="fa fa-table"></i> Source data</a><% end_if %>
-                    <% if $AllowFullscreen %><a href="javascript:void(0);" id="eh-fs-activator{$ID}"><i class="fa fa-expand"></i> View in full screen</a><% end_if %>
-                    </div>
-                    
-                <% end_if %>
             </div>
-
         </div>
     </div>
     <% end_if %>
