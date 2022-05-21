@@ -166,7 +166,7 @@ use function _t;
             
             $SiteConfig = SiteConfig::current_site_config();
             
-            if($SiteConfig->HighchartColours) {
+            if($SiteConfig->HighchartColours !== '') {
                 echo $SiteConfig->HighchartColours;
                 $chart->colors = json_decode($SiteConfig->HighchartColours);
             }
