@@ -29,32 +29,6 @@
                                 $chartConfig.RAW
                             );
                     
-                    chartInst{$ID}.update(
-                            {colors: [
-                    '#046b94', 
-                    '#53ab57', 
-                    '#1283b0', 
-                    '#9a7a5b', 
-                    '#67a7bf', 
-                    '#9fba4d',
-                    '#50a4a5', 
-                    '#d09861', 
-                    '#fcad30', 
-                    '#f13d0c'
-                ]}            
-                );
-                    
-                            <% if $DefaultSeries == 'pie' %>
-                            chartInst{$ID}.update({
-                                data : {
-                                    parsed: function(columns) {
-                // Keep the first item which is the series name, then remove the following 70
-                console.log(columns[0]);                                      
-                                    }
-                                }
-                            });
-                            <% end_if %>
-                    
 
                             <% if $EnableExporting %>
                             let ehcsva{$ID} = document.getElementById("eh-ehcsva-activator{$ID}");
@@ -80,6 +54,7 @@
                                 });
                             });
                             <% end_if %>
+                            window.dispatchEvent(new Event('resize'));
                         }
                     );
                 </script>
