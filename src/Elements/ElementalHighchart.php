@@ -167,7 +167,7 @@ use function _t;
             $SiteConfig = SiteConfig::current_site_config();
             
             if($SiteConfig->HighchartColours) {
-                $chart->colours = explode(',',$SiteConfig->HighchartColours);
+                $chart->colors = explode(',',$SiteConfig->HighchartColours);
             }
             
             if ($this->LibType == 'stock') {
