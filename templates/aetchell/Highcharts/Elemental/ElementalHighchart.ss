@@ -5,9 +5,9 @@
     <% if $SeriesData %>
     <div class="<% if $CSSClass %>{$CSSClass}<% end_if %> row">
         <% if $Content %>
-        <div class="col-12 col-md-4 content">$Content</div>
+        <div class="col-md-4 content">$Content</div>
         <% end_if %>
-        <div class="col col-12 col-md">
+        <div class="col-md">
             <div class="highchart-container">
                 <div id="elemental-highchart{$ID}" class="highchart" data-type="{$LibType}" style="height: {$ChartHeight}px;"></div>
                 <% if $ChartCaption || $AllowFullscreen %>
