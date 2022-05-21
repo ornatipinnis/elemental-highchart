@@ -3,11 +3,11 @@
     <h2 class="content-element__title">$Title</h2>
     <% end_if %>
     <% if $SeriesData %>
-    <div class="<% if $CSSClass %>{$CSSClass}<% end_if %> row">
+    <div class="<% if $CSSClass %>{$CSSClass}<% end_if %>">
         <% if $Content %>
-        <div class="col-md-4 content">$Content</div>
+        <div class="">$Content</div>
         <% end_if %>
-        <div class="col-md">
+        <div class="">
             <div class="highchart-container">
                 <div id="elemental-highchart{$ID}" class="highchart" data-type="{$LibType}" style="height: {$ChartHeight}px;"></div>
                 <% if $ChartCaption || $AllowFullscreen %>
