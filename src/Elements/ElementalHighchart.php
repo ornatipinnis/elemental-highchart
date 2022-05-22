@@ -448,11 +448,10 @@ namespace aetchell\Highcharts\Elemental {
                 $RangeSelector->displayIf('LibType')->isEqualTo('stock');
 
                 $PieInnerSize->displayIf('DefaultSeries')->isEqualTo('pie');
-
-                $Marker->displayIf('SeriesType')->isEqualTo('line')
-                        ->orIf('SeriesType')->isEqualTo('spline')
-                        ->orIf('SeriesType')->isEqualTo('areaspline')
-                        ->orIf('SeriesType')->isEqualTo('area');
+                $MarkerNotes->displayIf('DefaultSeries')->isEqualTo('line')
+                        ->orIf('DefaultSeries')->isEqualTo('spline')
+                        ->orIf('DefaultSeries')->isEqualTo('areaspline')
+                        ->orIf('DefaultSeries')->isEqualTo('area');
 
                 $MarkerSymbol->displayIf('Marker')->isChecked();
                 /**
