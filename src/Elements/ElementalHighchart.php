@@ -2,31 +2,31 @@
 
 namespace aetchell\Highcharts\Elemental {
 
-use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
-use aetchell\Highcharts\Libraries\HighchartsLibraries;
-use DNADesign\Elemental\Models\BaseElement;
-use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Assets\File;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\CompositeField;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\FieldGroup;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\NumericField;
-use SilverStripe\Forms\OptionsetField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\View\Parsers\ShortcodeParser;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use UncleCheese\DisplayLogic\Forms\Wrapper;
-use const BASE_PATH;
-use function _t;
+    use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
+    use aetchell\Highcharts\Libraries\HighchartsLibraries;
+    use DNADesign\Elemental\Models\BaseElement;
+    use SilverStripe\AssetAdmin\Forms\UploadField;
+    use SilverStripe\Assets\File;
+    use SilverStripe\Forms\CheckboxField;
+    use SilverStripe\Forms\CompositeField;
+    use SilverStripe\Forms\DropdownField;
+    use SilverStripe\Forms\FieldGroup;
+    use SilverStripe\Forms\FieldList;
+    use SilverStripe\Forms\GridField\GridField;
+    use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+    use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+    use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+    use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+    use SilverStripe\Forms\LiteralField;
+    use SilverStripe\Forms\NumericField;
+    use SilverStripe\Forms\OptionsetField;
+    use SilverStripe\Forms\TextField;
+    use SilverStripe\SiteConfig\SiteConfig;
+    use SilverStripe\View\Parsers\ShortcodeParser;
+    use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+    use UncleCheese\DisplayLogic\Forms\Wrapper;
+    use const BASE_PATH;
+    use function _t;
 
     class ElementalHighchart extends BaseElement {
 
@@ -58,11 +58,13 @@ use function _t;
             'ConnectNulls' => 'Boolean',
             'ZoomType' => 'Boolean',
             'ChartHeight' => 'Int',
-            'PieInnerSize' => 'Int'
-            // consider adding chart min/max
-            // could get difficult to manage on multi-series views
-            //'YMin' => 'Int',
-            //'YMax' => 'Int',            
+            'PieInnerSize' => 'Int',
+            'Marker' => 'Boolean',
+            'MarkerSymbol' => 'Enum(array("circle","square","triangle","triangle-down"),"circle")',
+                // consider adding chart min/max
+                // could get difficult to manage on multi-series views
+                //'YMin' => 'Int',
+                //'YMax' => 'Int',
         ];
         private static $has_one = [
             'File' => File::class
@@ -86,11 +88,13 @@ use function _t;
             'ConnectNulls' => false,
             'ChartHeight' => '400',
             'PieInnerSize' => 0,
-            'ZoomType' => true
+            'ZoomType' => true,
+            'Marker' => true,
+            'MarkerSymbol' => 'circle'
         ];
         private static $inline_editable = false;
         var $LibrariesExtra = [];
-        
+
         /**
          *
          * @param type $record
@@ -105,14 +109,14 @@ use function _t;
             if (isset($this->ID) && $this->LibType > '0') {
                 $this->LibrariesExtra['LibType'] = $this->LibType;
 
-                if($this->EnableExporting == true || $this->AllowFullscreen) {
-                    $this->LibrariesExtra['Exporting'] = true;    
+                if ($this->EnableExporting == true || $this->AllowFullscreen) {
+                    $this->LibrariesExtra['Exporting'] = true;
                 }
                 $SiteConfig = SiteConfig::current_site_config();
                 $charts = new HighchartsLibraries();
                 $charts->Libraries($SiteConfig, $this->LibrariesExtra);
             }
-        }        
+        }
 
         /**
          * Enforce ChartHeight
@@ -121,23 +125,23 @@ use function _t;
             parent::onBeforeWrite();
 
             if ((int) $this->ChartHeight <= 0) {
-                $this->ChartHeight = (int)self::$defaults['ChartHeight'];
+                $this->ChartHeight = (int) self::$defaults['ChartHeight'];
             }
-            if((int) $this->PieInnerSize <= 0) {
-                $this->PieInnerSize = (int)self::$defaults['PieInnerSize'];
+            if ((int) $this->PieInnerSize <= 0) {
+                $this->PieInnerSize = (int) self::$defaults['PieInnerSize'];
             }
         }
-        
+
         /**
          * Builds the chart config
-         * 
+         *
          * Takes the object and compiles a HighCharts.options object which is passed to the constructor.
-         * 
+         *
          * @return string JSON encoded string
          */
         public function chartConfig() {
             $chart = (object) [
-                        'chart' => ['type' => $this->DefaultSeries,'animation' => true],
+                        'chart' => ['type' => $this->DefaultSeries, 'animation' => true],
                         'credits' => ['enabled' => false],
                         'title' => ['text' => $this->ChartTitle],
                         'tooltip' => [
@@ -155,6 +159,9 @@ use function _t;
                                         'enabled' => true
                                     ]
                                 ],
+                                'marker' => [
+                                    'enabled' => false
+                                ],
                                 'connectNulls' => $this->ConnectNulls == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline', 'pie']) ? true : false
                             ]
                         ],
@@ -162,14 +169,13 @@ use function _t;
                             'enabled' => ($this->enableExporting == true ? true : false)
                         ]
             ];
-            
-            
+
             $SiteConfig = SiteConfig::current_site_config();
-            
-            if($SiteConfig->HighchartColours !== '') {
+
+            if ($SiteConfig->HighchartColours !== '') {
                 $chart->colors = explode(',', $SiteConfig->HighchartColours);
             }
-            
+
             if ($this->LibType == 'stock') {
                 $chart->rangeSelector['enabled'] = false;
                 $chart->navigator['enabled'] = false;
@@ -183,17 +189,15 @@ use function _t;
 
             if ($this->EnableExporting == true) {
                 $chart->exporting['enabled'] = true;
-                $chart->exporting['filename'] = preg_replace('/\s+/', '-', ($this->ChartTitle ? $this->ChartTitle : 'chart-export')).'-'.date('dmYHi');
+                $chart->exporting['filename'] = preg_replace('/\s+/', '-', ($this->ChartTitle ? $this->ChartTitle : 'chart-export')) . '-' . date('dmYHi');
             }
 
-            if($this->ZoomType == true) {
+            if ($this->ZoomType == true) {
                 $chart->chart['zoomType'] = 'xy';
-            }            
+            }
 
             if (
-                    $this->allowDataSourcePolling() == true 
-                    && $this->DataSource == 'API' 
-                    && $this->DefaultSeries !== 'pie'
+                    $this->allowDataSourcePolling() == true && $this->DataSource == 'API' && $this->DefaultSeries !== 'pie'
             ) {
                 $chart->data['enablePolling'] = true;
                 $chart->data['dataRefreshRate'] = (int) $this->EnablePolling;
@@ -212,8 +216,7 @@ use function _t;
              * No series config for pie charts
              */
             if (
-                    $this->Series()->count() > 0 
-                    && $this->DefaultSeries !== 'pie'
+                    $this->Series()->count() > 0 && $this->DefaultSeries !== 'pie'
             ) {
                 $c = 0;
                 foreach ($this->Series() as $s) {
@@ -264,19 +267,18 @@ use function _t;
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesLabel;
                 $chart->yAxis['labels']['format'] = '{value}' . $this->DefaultSeriesLabel;
             }
-            
+
             /**
              * Pie charts won't pull in the CSV data's category name so we have to manually fetch the data here for pie charts
              * @todo - use JS to parse the CSV and extract the names and dynamically add them to the series.
              * sigh
              */
-            if($this->DefaultSeries == 'pie') {
+            if ($this->DefaultSeries == 'pie') {
                 $chart->series = $this->SeriesArray();
                 $chart->data['enablePolling'] = false;
                 $chart->plotOptions['pie']['innerSize'] = $this->PieInnerSize >= 0 ? $this->PieInnerSize : 0;
             } else {
                 $chart->data['csvURL'] = $this->SeriesData();
-                
             }
 
             //$chart->series = $this->SeriesArray();
@@ -299,7 +301,7 @@ use function _t;
         }
 
         public function getCMSFields() {
-           
+
             $this->beforeUpdateCMSFields(function (FieldList $fields) {
 
                 $fields->removeByName('Content');
@@ -328,7 +330,8 @@ use function _t;
                 $fields->removeByName('ValueSuffix');
                 $fields->removeByName('ChartHeight');
                 $fields->removeByName('PieInnerSize');
-                
+                $fields->removeByName('Marker');
+                $fields->removeByName('MarkerSymbol');
 
                 $Content = HTMLEditorField::create('Content', 'Content')->setRows(10)->setDescription('Appears to in a column to the left of the chart.');
 
@@ -344,7 +347,7 @@ use function _t;
                 $CSSClass->setDescription('Add a custom CSS class to this chart, you can add multiple classes here in the format "class1 class2 class3"');
 
                 $ChartDesc = LiteralField::create('ChartDesc', '<p>For most charts the type should be "chart". You only need to select "stock" if your data is time base, require the navigator, range selector or want to add trendlines. Stock charts require the data to be categorised by time or date values.</p>');
-                $ChartStyleDesc = LiteralField::create('ChartStyleDesc', '<p>Add a custom CSS class name to surround your chart. You shouldn\'t need to add anything here generally.</p><p>You can also set the height of the chart here, the default is '.self::$defaults['ChartHeight'].' pixels high which is ideal for most charts.</p>');
+                $ChartStyleDesc = LiteralField::create('ChartStyleDesc', '<p>Add a custom CSS class name to surround your chart. You shouldn\'t need to add anything here generally.</p><p>You can also set the height of the chart here, the default is ' . self::$defaults['ChartHeight'] . ' pixels high which is ideal for most charts.</p>');
                 $ChartTitle = TextField::create('ChartTitle', 'Chart title');
 
                 $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
@@ -371,7 +374,7 @@ use function _t;
                 $Series = new GridField('Series', 'Series', $this->Series(), $GridConf);
                 $Series->setDescription('Add one or more series configs and order them manually.');
                 //$Series->displayIf('DefaultSeries')->isNotEqualTo('pie');
-                
+
                 $RemoteDataSource = TextField::create('RemoteDataSource', 'Remote data source');
                 $RemoteDataSource->setDescription('If your data is pulled from an API or remove source, enter the full URL to the data here.');
 
@@ -398,16 +401,22 @@ use function _t;
                 $EnableExporting->setDescription('This will enable the exporting menu on the chart.');
 
                 $AllowFullscreen = CheckboxField::create('AllowFullscreen', 'Add fullscreen button');
-                $AllowFullscreen->setDescription('This adds an option to open the chart in full screen mode from a hyperlink.');                
-                
+                $AllowFullscreen->setDescription('This adds an option to open the chart in full screen mode from a hyperlink.');
+
                 $ZoomType = CheckboxField::create('ZoomType', 'Allow zoom');
                 $ZoomType->setDescription('Allow zoom by dragging the mouse.');
 
                 $PieInnerSize = NumericField::create('PieInnerSize', 'Pie chart inner size (px)');
                 $PieInnerSize->setDescription('If this value is greater than zero then the pie chart will be rendered as a donut chart. The value is the size of the hole in pixels');
-                
-                
+
                 $HighchartsLink = LiteralField::create('HighchartsLink', file_get_contents(dirname(dirname(dirname(__FILE__))) . '/docs/highchartsHelp.html'));
+
+                $MarkerNotes = LiteralField::create('MarkerNotes', '<div>These options are only availble for "line","spline", "area" and "areaspline" series.</div>');
+                $Marker = CheckboxField::create('Marker', 'Show data point markers');
+                $Marker->setDescription('Show markers on each data point. Markers are only available for certain series types such as "line" and "spline"');
+
+                $MarkerSymbol = DropdownField::create('MarkerSymbol', 'Marker symbol')->setSource($this->dbObject('MarkerSymbol')->enumValues());
+                $MarkerSymbol->setDescription('Which symbol to use for the data point marker.');
 
                 /**
                  * Highstock fields
@@ -425,7 +434,7 @@ use function _t;
                         ->orIf('DefaultSeries')->isEqualTo('area')
                         ->orIf('DefaultSeries')->isEqualTo('areaspline')
                         ->orIf('DefaultSeries')->isEqualTo('pie');
-                
+
                 /**
                  * Display logic
                  */
@@ -437,8 +446,15 @@ use function _t;
 
                 $Navigator->displayIf('LibType')->isEqualTo('stock');
                 $RangeSelector->displayIf('LibType')->isEqualTo('stock');
-                
+
                 $PieInnerSize->displayIf('DefaultSeries')->isEqualTo('pie');
+
+                $Marker->displayIf('SeriesType')->isEqualTo('line')
+                        ->orIf('SeriesType')->isEqualTo('spline')
+                        ->orIf('SeriesType')->isEqualTo('areaspline')
+                        ->orIf('SeriesType')->isEqualTo('area');
+
+                $MarkerSymbol->displayIf('Marker')->isChecked();
                 /**
                  * Add fields to page
                  */
@@ -469,8 +485,11 @@ use function _t;
                                 $Navigator,
                                 $RangeSelector,
                                 $ZoomType,
-                                $PieInnerSize
-                        )->setTitle('Chart attributes'));                
+                                $PieInnerSize,
+                                $MarkerNotes,
+                                $Marker,
+                                $MarkerSymbol
+                        )->setTitle('Chart attributes'));
 
                 $fields->addFieldToTab('Root.ChartData', $DataSource);
                 $fields->addFieldToTab('Root.ChartData', $RemoteDataSource);
@@ -483,8 +502,7 @@ use function _t;
                                         $ValueSuffix
                                 ),
                                 $SeriesConfigHelp
-                        )->setTitle('Default series formatting'));                
-                
+                        )->setTitle('Default series formatting'));
 
                 $fields->addFieldToTab('Root.Help', $HighchartsLink);
             });
@@ -539,55 +557,51 @@ use function _t;
 
             return $data;
         }
-        
-    public function SeriesArray() {
-        //print_r($this->DataSet());
-        //echo BASE_PATH . '/' . $this->DataSet()->Url;
-        if ($this->SeriesData()) {
-            $row = 0;
-            $dataArray = array();
-            //$dataArray = array();
-            $dataFilePath = (
-                    $this->DataSource == 'CSV' 
-                    ? BASE_PATH . '/public' . $this->SeriesData() 
-                    : $this->SeriesData()
-            );
-            if (($handle = fopen($dataFilePath, "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $num = count($data);
-                    if ($row > 0) {
-                        for ($c = 0; $c < $num; $c++) {
-                            if ($c > 0) {
-                                if (is_numeric(trim($data[$c]))) {
-                                    $valueRow = ($c + ( ($num - 1) / 2 ));
-                                    $dataArray[$headers[$c]]['name'] = $headers[$c];
-                                    $dataArray[$headers[$c]]['data'][] = array(
-                                        'y' => (float) $data[$c],
-                                        'name' => $data[0]
-                                    );
 
+        public function SeriesArray() {
+            //print_r($this->DataSet());
+            //echo BASE_PATH . '/' . $this->DataSet()->Url;
+            if ($this->SeriesData()) {
+                $row = 0;
+                $dataArray = array();
+                //$dataArray = array();
+                $dataFilePath = (
+                        $this->DataSource == 'CSV' ? BASE_PATH . '/public' . $this->SeriesData() : $this->SeriesData()
+                        );
+                if (($handle = fopen($dataFilePath, "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        $num = count($data);
+                        if ($row > 0) {
+                            for ($c = 0; $c < $num; $c++) {
+                                if ($c > 0) {
+                                    if (is_numeric(trim($data[$c]))) {
+                                        $valueRow = ($c + ( ($num - 1) / 2 ));
+                                        $dataArray[$headers[$c]]['name'] = $headers[$c];
+                                        $dataArray[$headers[$c]]['data'][] = array(
+                                            'y' => (float) $data[$c],
+                                            'name' => $data[0]
+                                        );
+                                    }
                                 }
                             }
+                        } else {
+                            $headers = $data;
                         }
-                    } else {
-                        $headers = $data;
+                        $row++;
                     }
-                    $row++;
+                    fclose($handle);
                 }
-                fclose($handle);
-            }
-            if (count($dataArray) > 0) {
-                foreach ($dataArray as $k => $v) {
-                    $JSONArray[] = $v;
-                }
+                if (count($dataArray) > 0) {
+                    foreach ($dataArray as $k => $v) {
+                        $JSONArray[] = $v;
+                    }
 
-                return $JSONArray;
-            } else {
-                return false;
+                    return $JSONArray;
+                } else {
+                    return false;
+                }
             }
         }
-
-    }        
 
         public function allowDataSourcePolling() {
             if ((int) $this->EnablePolling > 0) {
