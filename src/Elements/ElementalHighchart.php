@@ -498,7 +498,6 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->addFieldToTab('Root.ChartData', $RemoteDataSource);
                 $fields->addFieldToTab('Root.ChartData', $EnablePolling);
                 $fields->addFieldToTab('Root.ChartData', $File);
-                $fields->addFieldToTab('Root.ChartData', Wrapper::create($Series)->hideIf('DefaultSeries')->isEqualTo('pie')->end());
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
                                         $DefaultSeriesLabel,
                                         $ValuePrefix,
@@ -506,7 +505,7 @@ namespace aetchell\Highcharts\Elemental {
                                 ),
                                 $SeriesConfigHelp
                         )->setTitle('Default series formatting'));
-
+                $fields->addFieldToTab('Root.ChartData', Wrapper::create($Series)->hideIf('DefaultSeries')->isEqualTo('pie')->end());
                 $fields->addFieldToTab('Root.Help', $HighchartsLink);
             });
             return parent::getCMSFields();
