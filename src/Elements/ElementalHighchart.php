@@ -170,6 +170,10 @@ namespace aetchell\Highcharts\Elemental {
                         ]
             ];
 
+            if ($this->Marker == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline'])) {
+                $chart->plotOptions['series']['marker']['enabled'] = true;
+                $chart->plotOptions['series']['marker']['symbol'] = $this->MarkerSymbol;
+            }
             $SiteConfig = SiteConfig::current_site_config();
 
             if ($SiteConfig->HighchartColours !== '') {
