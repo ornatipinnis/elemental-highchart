@@ -279,7 +279,7 @@ use function _t;
                 
             }
 
-            $chart->series = $this->SeriesArray();
+            //$chart->series = $this->SeriesArray();
 
             return json_encode($chart);
         }
