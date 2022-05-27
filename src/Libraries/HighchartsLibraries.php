@@ -26,7 +26,7 @@ namespace aetchell\Highcharts\Libraries {
              */
             $chartsGlobal = (json_decode($SiteConfig->HighchartLibs && $SiteConfig->HighchartLibraryAllPages == true) ? json_decode($SiteConfig->HighchartLibs) : []);
             $charts = $chartsGlobal;
-            if ($Extra['LibType']) {
+            if (isset($Extra['LibType'])) {
                 $charts = array_merge($chartsGlobal, [$Extra['LibType']]);
             }
             foreach ($charts as $Type) {
