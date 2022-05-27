@@ -2,9 +2,9 @@
 
 namespace aetchell\Highcharts\Extensions {
 
-    use aetchell\Highcharts\HighchartsLibraries;
-    use SilverStripe\ORM\DataExtension;
-    use SilverStripe\SiteConfig\SiteConfig;
+use aetchell\Highcharts\Libraries\HighchartsLibraries;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\SiteConfig\SiteConfig;
 
     class HighchartsLibraryControllerExtension extends DataExtension {
 
