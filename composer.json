@@ -1,7 +1,12 @@
 {
     "name": "aetchell/elemental-highchart",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "Add Highcharts and Highcharts Stock objects to your pages inside Elemental blocks",
+    "keywords": [
+        "silverstripe",
+        "elemental",
+        "highchart"
+    ],
     "license": "BSD-3-Clause",
     "authors": [
         {
