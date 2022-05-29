@@ -15,7 +15,8 @@ namespace aetchell\Elemental\Blocks {
             'HighchartVersionNumber' => 'Varchar(4)',
             'HighchartLibraryAllPages' => 'Boolean',
             'HighchartLibs' => 'Varchar(255)',
-            'HighchartColours' => 'MultiValueField'
+            'HighchartColours' => 'MultiValueField',
+            'HighchartAdditionalLibs' => 'MultiValueField'
         ];
 
         public function updateCMSFields(FieldList $fields) {
@@ -33,6 +34,10 @@ namespace aetchell\Elemental\Blocks {
             ]);
             $HighchartLibs->setDescription('Which libraries do you want to include on all pages?');
 
+            $HighchartMoreLibs = MultiValueTextField::create('HighchartAdditionalLibs', 'Additional libraries')
+                    ->setAttribute('placeholder','modules/solid-gauge.js');
+            $HighchartMoreLibs->setDescription('Add one or more additional highcharts libraries. see the list at <a href="https://code.highcharts.com/">code.highcharts.com</a>');            
+            
             $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
                     ->setAttribute('placeholder','#ff0000');
             $HighchartColours->setDescription('Add one or more hex formatted colours to this list to use in your charts. for example "#ff0000"');
@@ -40,6 +45,7 @@ namespace aetchell\Elemental\Blocks {
             $fields->addFieldToTab('Root.Highcharts', $HighchartVersion);
             $fields->addFieldToTab('Root.Highcharts', $HighchartColours);
             $fields->addFieldToTab('Root.Highcharts', $HighchartLibs);
+            $fields->addFieldToTab('Root.Highcharts', $HighchartMoreLibs);
         }
 
         public static function HighchartVersions() {
