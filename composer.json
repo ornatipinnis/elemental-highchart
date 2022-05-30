@@ -1,5 +1,5 @@
 {
-    "name": "ornatipinnis/elemental-highchart",
+    "name": "aetchell/elemental-highchart",
     "type": "silverstripe-vendormodule",
     "description": "Add Highcharts and Highcharts Stock objects to your pages inside Elemental blocks",
     "keywords": [
