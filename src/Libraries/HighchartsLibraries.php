@@ -106,7 +106,6 @@ namespace aetchell\Highcharts\Libraries {
             foreach ($HighchartsJSRequire as $HcJS) {
                 Requirements::javascript(implode('/', $HcJS), ['defer' => true]);
             }
-            //Requirements::set_force_js_to_bottom(true);
             Requirements::css('aetchell/elemental-highchart:client/css/HighchartElemental.css');
         }
 

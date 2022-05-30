@@ -33,6 +33,7 @@ namespace aetchell\Elemental\Blocks {
             $HighchartLibs = CheckboxSetField::create('HighchartLibs', 'Which libraries to include', [
                 'chart' => 'Highcharts', 
                 'stock' => 'Highcharts Stock', 
+                // coming soon...
                 //'maps' => 'Highcharts Maps', 
                 //'gantt' => 'Highcharts Gantt'
             ]);

@@ -286,8 +286,6 @@ namespace aetchell\Highcharts\Elemental {
                 $chart->data['csvURL'] = $this->SeriesData();
             }
 
-            //$chart->series = $this->SeriesArray();
-
             return json_encode($chart);
         }
 
@@ -376,14 +374,12 @@ namespace aetchell\Highcharts\Elemental {
                 $remove = [];
                 $remove[] = GridFieldAddExistingAutocompleter::class;
                 $remove[] = GridFieldFilterHeader::class;
-                //$remove[] = GridFieldArchiveAction::class;
                 if (count($remove) > 0) {
                     $GridConf->removeComponentsByType($remove);
                 }
 
                 $Series = new GridField('Series', 'Series', $this->Series(), $GridConf);
                 $Series->setDescription('Add one or more series configs and order them manually.');
-                //$Series->displayIf('DefaultSeries')->isNotEqualTo('pie');
 
                 $RemoteDataSource = TextField::create('RemoteDataSource', 'Remote data source');
                 $RemoteDataSource->setDescription('If your data is pulled from an API or remove source, enter the full URL to the data here.');
@@ -568,12 +564,9 @@ namespace aetchell\Highcharts\Elemental {
         }
 
         public function SeriesArray() {
-            //print_r($this->DataSet());
-            //echo BASE_PATH . '/' . $this->DataSet()->Url;
             if ($this->SeriesData()) {
                 $row = 0;
                 $dataArray = array();
-                //$dataArray = array();
                 $dataFilePath = (
                         $this->DataSource == 'CSV' ? BASE_PATH . '/public' . $this->SeriesData() : $this->SeriesData()
                         );
