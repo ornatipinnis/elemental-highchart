@@ -41,6 +41,7 @@ namespace aetchell\Highcharts\Elemental {
             'LibType' => 'Enum(array("chart","stock"),"chart")',
             'DefaultSeries' => 'Enum(array("line","spline","area","areaspline","bar","column","pie"),"line")',
             'DefaultSeriesLabel' => 'Varchar(20)',
+            'DefaultSeriesTitle' => 'Varchar(40)',
             'ValuePrefix' => 'Varchar(20)',
             'ValueSuffix' => 'Varchar(20)',
             'ChartTitle' => 'Varchar(255)',
@@ -268,7 +269,7 @@ namespace aetchell\Highcharts\Elemental {
                 /**
                  * otherwise do a simple yAxis setup
                  */
-                $chart->yAxis['title']['text'] = $this->DefaultSeriesLabel;
+                $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
                 $chart->yAxis['labels']['format'] = '{value}' . $this->DefaultSeriesLabel;
             }
 
@@ -313,6 +314,7 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->removeByName('LibType');
                 $fields->removeByName('DefaultSeries');
                 $fields->removeByName('DefaultSeriesLabel');
+                $fields->removeByName('DefaultSeriesTitle');
                 $fields->removeByName('ChartTitle');
                 $fields->removeByName('ChartSubtitle');
                 $fields->removeByName('CSSClass');
@@ -353,6 +355,10 @@ namespace aetchell\Highcharts\Elemental {
                 $ChartDesc = LiteralField::create('ChartDesc', '<p>For most charts the type should be "chart". You only need to select "stock" if your data is time base, require the navigator, range selector or want to add trendlines. Stock charts require the data to be categorised by time or date values.</p>');
                 $ChartStyleDesc = LiteralField::create('ChartStyleDesc', '<p>Add a custom CSS class name to surround your chart. You shouldn\'t need to add anything here generally.</p><p>You can also set the height of the chart here, the default is ' . self::$defaults['ChartHeight'] . ' pixels high which is ideal for most charts.</p>');
                 $ChartTitle = TextField::create('ChartTitle', 'Chart title');
+
+                $DefaultSeriesTitle = TextField::create('DefaultSeriesTitle', 'Y axis title')
+                        ->setAttribute('placeholder', 'mm')
+                        ->setDescription('The default Y axis title, this appears next to the Y axis, for example "rainfall".');
 
                 $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
                         ->setAttribute('placeholder', 'mm')
@@ -499,6 +505,7 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->addFieldToTab('Root.ChartData', $EnablePolling);
                 $fields->addFieldToTab('Root.ChartData', $File);
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
+                                        $DefaultSeriesTitle,
                                         $DefaultSeriesLabel,
                                         $ValuePrefix,
                                         $ValueSuffix
