@@ -2,7 +2,7 @@
 This elemental block allows you to embed a Highchart or Highchart Stock chart into your elemental area.
 
 ## Installation
-`composer require aetchell/elemental-highchart`
+`composer require ornatipinnis/elemental-highchart`
 
 ## Requirements
 The default template uses [fontawesome v4](https://fontawesome.com/v4/) for chart control icons.
@@ -12,7 +12,7 @@ The follwing Silverstripe modules are also required in addition to the core fram
 - [silverstripe/display-logic](https://github.com/unclecheese/silverstripe-display-logic) ^2.0    
 
 ## Templates
-You can override the default template by copying `/templates/aetchell/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/aetchell/Highcharts/Elemental/ElementaHighchart.ss`
+You can override the default template by copying `/templates/polypterus/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/polypterus/Highcharts/Elemental/ElementaHighchart.ss`
 
 ## CSS
 Sample styles can be found in:

@@ -1,8 +1,8 @@
 <?php
 
-namespace aetchell\Highcharts\Elemental {
+namespace ornatipinnis\Highcharts\Elemental {
 
-use aetchell\Highcharts\Elemental\ElementalHighchart;
+use ornatipinnis\Highcharts\Elemental\ElementalHighchart;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\CompositeField;
 use SilverStripe\Forms\DropdownField;

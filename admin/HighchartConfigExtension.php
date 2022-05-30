@@ -1,6 +1,6 @@
 <?php
 
-namespace aetchell\Elemental\Blocks {
+namespace ornatipinnis\Elemental\Blocks {
 
     use SilverStripe\Forms\CheckboxField;
     use SilverStripe\Forms\CheckboxSetField;

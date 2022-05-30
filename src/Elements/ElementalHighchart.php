@@ -1,9 +1,9 @@
 <?php
 
-namespace aetchell\Highcharts\Elemental {
+namespace ornatipinnis\Highcharts\Elemental {
 
-    use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
-    use aetchell\Highcharts\Libraries\HighchartsLibraries;
+    use ornatipinnis\Highcharts\Elemental\ElementalHighchartSeries;
+    use ornatipinnis\Highcharts\Libraries\HighchartsLibraries;
     use DNADesign\Elemental\Models\BaseElement;
     use SilverStripe\AssetAdmin\Forms\UploadField;
     use SilverStripe\Assets\File;
