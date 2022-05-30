@@ -8,7 +8,6 @@
                 $chartConfig.RAW
             );
 
-
             <% if $EnableExporting %>
             let ehcsva{$ID} = document.getElementById("eh-ehcsva-activator{$ID}");
             ehcsva{$ID}.addEventListener('click', () => { 

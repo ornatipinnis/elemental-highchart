@@ -8,19 +8,19 @@
         <div class="">$Content</div>
         <% end_if %>
         <div class="">
-            <div class="highchart-container">
+            <figure class="highchart-container">
                 <div id="elemental-highchart{$ID}" class="highchart" data-type="{$LibType}" style="height: {$ChartHeight}px;"></div>
                 <% if $ChartCaption || $AllowFullscreen %>
-                <div class="chart-caption">
+                <figcaption class="chart-caption">
                     $ChartCaption                
-                </div>
+                </figcaption>
                 <div class="chart-controls">
-                <% if $EnableExporting %><a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}"><i class="fa fa-table"></i> Source data</a><% end_if %>
-                <% if $AllowFullscreen %><a href="javascript:void(0);" id="eh-fs-activator{$ID}"><i class="fa fa-expand"></i> View in full screen</a><% end_if %>
+                <% if $EnableExporting %><i class="fa fa-download"></i> <a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}">Download data</a><% end_if %>
+                <% if $AllowFullscreen %><i class="fa fa-expand"></i> <a href="javascript:void(0);" id="eh-fs-activator{$ID}">View in full screen</a><% end_if %>
                 </div>
                 <% end_if %>
                 <% include chartJS %>
-            </div>
+            </figure>
         </div>
     </div>
     <% end_if %>

@@ -20,6 +20,12 @@ namespace aetchell\Highcharts\Libraries {
             ) {
                 $HighchartToUse = $SiteConfig->HighchartVersionNumber;
             }
+            
+            if (
+                    isset($SiteConfig->HighchartAdditionalLibs) && $SiteConfig->HighchartAdditionalLibs !== '' 
+            ) {
+                $HighchartAdditionalLibs = json_decode($SiteConfig->HighchartAdditionalLibs);
+            }            
 
             /**
              * Create a map of files to include here, maybe add all these into the config page rather than hardcode into classes
@@ -53,6 +59,14 @@ namespace aetchell\Highcharts\Libraries {
                         $HighchartsJSRequire[] = ($HighchartToUse !== false ?
                                 [self::$HighchartsURLBase, $HighchartToUse, 'modules/solid-gauge.js'] :
                                 [self::$HighchartsURLBase, 'modules/solid-gauge.js']);
+                        
+                        if(is_array($HighchartAdditionalLibs)) {
+                            foreach($HighchartAdditionalLibs as $extraFile) {
+                                $HighchartsJSRequire[] = ($HighchartToUse !== false ?
+                                        [self::$HighchartsURLBase, $HighchartToUse, $extraFile] :
+                                        [self::$HighchartsURLBase, $extraFile]);                                
+                            }
+                        }
                         
                         if (isset($Extra['Exporting']) && $Extra['Exporting'] == true) {
                             $HighchartsJSRequire[] = ($HighchartToUse !== false ?

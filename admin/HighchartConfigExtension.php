@@ -18,6 +18,10 @@ namespace aetchell\Elemental\Blocks {
             'HighchartColours' => 'MultiValueField',
             'HighchartAdditionalLibs' => 'MultiValueField'
         ];
+        
+        private static $defaults = [
+            
+        ];
 
         public function updateCMSFields(FieldList $fields) {
             $HighchartVersion = DropdownField::create('HighchartVersionNumber', 'Highchart version')->setSource(self::HighchartVersions());
@@ -32,11 +36,11 @@ namespace aetchell\Elemental\Blocks {
                 //'maps' => 'Highcharts Maps', 
                 //'gantt' => 'Highcharts Gantt'
             ]);
-            $HighchartLibs->setDescription('Which libraries do you want to include on all pages?');
+            $HighchartLibs->setDescription('Which libraries do you want to include on all pages? Note that currently, highstock is added regardless of your choice above. Highstock contains all the highcharts functionality.');
 
             $HighchartMoreLibs = MultiValueTextField::create('HighchartAdditionalLibs', 'Additional libraries')
                     ->setAttribute('placeholder','modules/solid-gauge.js');
-            $HighchartMoreLibs->setDescription('Add one or more additional highcharts libraries. see the list at <a href="https://code.highcharts.com/">code.highcharts.com</a>');            
+            $HighchartMoreLibs->setDescription('Add one or more additional highcharts libraries. see the list at <a href="https://code.highcharts.com/">code.highcharts.com</a>. Add only the filename and "modules/" if the file you want to add is in the modules folder. eg: modules/solid-gauge.js');            
             
             $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
                     ->setAttribute('placeholder','#ff0000');
