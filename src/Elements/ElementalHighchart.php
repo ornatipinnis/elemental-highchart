@@ -357,8 +357,8 @@ namespace aetchell\Highcharts\Elemental {
                 $ChartTitle = TextField::create('ChartTitle', 'Chart title');
 
                 $DefaultSeriesTitle = TextField::create('DefaultSeriesTitle', 'Y axis title')
-                        ->setAttribute('placeholder', 'mm')
-                        ->setDescription('The default Y axis title, this appears next to the Y axis, for example "rainfall".');
+                        ->setAttribute('placeholder', 'Rainfall')
+                        ->setDescription('The default Y axis title, this appears next to the Y axis, for example "Rainfall".');
 
                 $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
                         ->setAttribute('placeholder', 'mm')
