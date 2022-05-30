@@ -1,8 +1,8 @@
 <?php
 
-namespace ornatipinnis\Highcharts\Extensions {
+namespace aetchell\Highcharts\Extensions {
 
-use ornatipinnis\Highcharts\Libraries\HighchartsLibraries;
+use aetchell\Highcharts\Libraries\HighchartsLibraries;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\SiteConfig\SiteConfig;
 

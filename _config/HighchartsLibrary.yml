@@ -3,11 +3,11 @@ Name: HighchartsLibraryExtensions
 ---
 PageController:
   extensions:
-    - ornatipinnis\Highcharts\Extensions\HighchartsLibraryControllerExtension
+    - aetchell\Highcharts\Extensions\HighchartsLibraryControllerExtension
 ---
 Name: HighchartConfigExtensionConfig
 before: '*'
 ---
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - ornatipinnis\Elemental\Blocks\HighchartConfigExtension
+    - aetchell\Elemental\Blocks\HighchartConfigExtension

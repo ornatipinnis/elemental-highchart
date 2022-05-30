@@ -1,9 +1,9 @@
 <?php
 
-namespace ornatipinnis\Highcharts\Elemental {
+namespace aetchell\Highcharts\Elemental {
 
-    use ornatipinnis\Highcharts\Elemental\ElementalHighchartSeries;
-    use ornatipinnis\Highcharts\Libraries\HighchartsLibraries;
+    use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
+    use aetchell\Highcharts\Libraries\HighchartsLibraries;
     use DNADesign\Elemental\Models\BaseElement;
     use SilverStripe\AssetAdmin\Forms\UploadField;
     use SilverStripe\Assets\File;
@@ -337,7 +337,7 @@ namespace ornatipinnis\Highcharts\Elemental {
                 $fields->removeByName('Marker');
                 $fields->removeByName('MarkerSymbol');
 
-                $Content = HTMLEditorField::create('Content', 'Content')->setRows(10)->setDescription('Appears to in a column to the left of the chart.');
+                $Content = HTMLEditorField::create('Content', 'Content')->setRows(10)->setDescription('Appears in a column to the left of the chart.');
 
                 $ChartCaption = HTMLEditorField::create('ChartCaption', 'Chart caption')->setRows(2)->setDescription('Appears below the chart.');
 

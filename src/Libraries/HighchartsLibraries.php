@@ -1,6 +1,6 @@
 <?php
 
-namespace ornatipinnis\Highcharts\Libraries {
+namespace aetchell\Highcharts\Libraries {
 
     use SilverStripe\View\Requirements;
 
@@ -11,7 +11,7 @@ namespace ornatipinnis\Highcharts\Libraries {
 
         public function Libraries($SiteConfig = false, $Extra = false) {
             $HighchartsJSRequire = [];
-            $HighchartsJSRequire[] = ['ornatipinnis/elemental-highchart:client/js/HighchartElemental.js'];
+            $HighchartsJSRequire[] = ['aetchell/elemental-highchart:client/js/HighchartElemental.js'];
 
             $HighchartToUse = false;
 
@@ -106,7 +106,7 @@ namespace ornatipinnis\Highcharts\Libraries {
             foreach ($HighchartsJSRequire as $HcJS) {
                 Requirements::javascript(implode('/', $HcJS), ['defer' => true]);
             }
-            Requirements::css('ornatipinnis/elemental-highchart:client/css/HighchartElemental.css');
+            Requirements::css('aetchell/elemental-highchart:client/css/HighchartElemental.css');
         }
 
     }
