@@ -42,6 +42,7 @@ namespace aetchell\Highcharts\Elemental {
             'DefaultSeries' => 'Enum(array("line","spline","area","areaspline","bar","column","pie"),"line")',
             'DefaultSeriesLabel' => 'Varchar(20)',
             'DefaultSeriesTitle' => 'Varchar(40)',
+            'DefaultXAxisTitle' => 'Varchar(40)',
             'ValuePrefix' => 'Varchar(20)',
             'ValueSuffix' => 'Varchar(20)',
             'ChartTitle' => 'Varchar(255)',
@@ -168,8 +169,17 @@ namespace aetchell\Highcharts\Elemental {
                         ],
                         'exporting' => [
                             'enabled' => ($this->enableExporting == true ? true : false)
-                        ]
+                        ],
+                        'xAxis' => [
+                            'title' => [
+                                'Text' => false
+                            ]
+                        ],
             ];
+            
+            if($this->DefaultXAxisTitle !== '') {
+                $chart['xAxis']['title']['text'] = $this->DefaultXAxisTitle;
+            }
 
             if ($this->Marker == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline'])) {
                 $chart->plotOptions['series']['marker']['enabled'] = true;
@@ -313,6 +323,7 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->removeByName('DefaultSeries');
                 $fields->removeByName('DefaultSeriesLabel');
                 $fields->removeByName('DefaultSeriesTitle');
+                $fields->removeByNAme('DefaultXAxisTitle');
                 $fields->removeByName('ChartTitle');
                 $fields->removeByName('ChartSubtitle');
                 $fields->removeByName('CSSClass');
@@ -358,6 +369,11 @@ namespace aetchell\Highcharts\Elemental {
                         ->setAttribute('placeholder', 'Rainfall')
                         ->setDescription('The default Y axis title, this appears next to the Y axis, for example "Rainfall".');
 
+                $DefaultXAxisTitle = TextField::create('DefaultXAxisTitle', 'X axis title')
+                        ->setAttribute('placeholder', 'Years')
+                        ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
+                
+                
                 $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
                         ->setAttribute('placeholder', 'mm')
                         ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value.');
@@ -501,6 +517,7 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->addFieldToTab('Root.ChartData', $EnablePolling);
                 $fields->addFieldToTab('Root.ChartData', $File);
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
+                                        $DefaultXAxisTitle,
                                         $DefaultSeriesTitle,
                                         $DefaultSeriesLabel,
                                         $ValuePrefix,
