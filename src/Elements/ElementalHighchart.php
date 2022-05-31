@@ -285,8 +285,7 @@ namespace aetchell\Highcharts\Elemental {
                  */
                 $chart->yAxis['lables']['formatter'] = '';
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
-                $chart->yAxis['labels']['format'] = '{value:,.0f}';
-                if($this->DefaultSeriesLabel !== '') {
+                if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
                     $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
                 } 
                 
