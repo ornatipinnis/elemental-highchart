@@ -148,7 +148,7 @@ namespace aetchell\Highcharts\Elemental {
                         'title' => ['text' => $this->ChartTitle],
                         'tooltip' => [
                             'shared' => true,
-                            'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
+                            //'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
                             'valuePrefix' => ($this->ValuePrefix ? $this->ValuePrefix : ''),
                             'valueSuffix' => ($this->ValueSuffix ? $this->ValueSuffix : '')
                         ],
@@ -285,9 +285,10 @@ namespace aetchell\Highcharts\Elemental {
                  */
                 $chart->yAxis['lables']['formatter'] = '';
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
+                $chart->yAxis['labels']['format'] = '{value:,.0f}';
                 if($this->DefaultSeriesLabel !== '') {
                     $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
-                }
+                } 
                 
             }
 
