@@ -279,8 +279,9 @@ namespace aetchell\Highcharts\Elemental {
                 /**
                  * otherwise do a simple yAxis setup
                  */
+                $chart->yAxis['lables']['formatter'] = '';
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
-                $chart->yAxis['labels']['format'] = '{value}' . $this->DefaultSeriesLabel;
+                $chart->yAxis['labels']['format'] = '{value:,.0f}' . $this->DefaultSeriesLabel;
             }
 
             /**
