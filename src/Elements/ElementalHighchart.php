@@ -386,9 +386,9 @@ namespace aetchell\Highcharts\Elemental {
                 /**
                  * Remove DefaultSeriesLabel for now
                  */
-//                $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
-//                        ->setAttribute('placeholder', 'mm')
-//                        ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value. <b>Adding a label will prevent the Y axis from being formatted.</b>');
+                $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
+                        ->setAttribute('placeholder', 'mm')
+                        ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value. <b>Adding a label will prevent the Y axis from being formatted.</b>');
                 $ValuePrefix = TextField::create('ValuePrefix', 'Value prefix');
                 $ValueSuffix = TextField::create('ValueSuffix', 'Value suffix');
 
@@ -531,7 +531,7 @@ namespace aetchell\Highcharts\Elemental {
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
                                         $DefaultXAxisTitle,
                                         $DefaultSeriesTitle,
-                                        $DefaultSeriesLabel,
+                                        //$DefaultSeriesLabel,
                                         $ValuePrefix,
                                         $ValueSuffix
                                 ),
