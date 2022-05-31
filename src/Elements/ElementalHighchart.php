@@ -178,7 +178,7 @@ namespace aetchell\Highcharts\Elemental {
             ];
             
             if($this->DefaultXAxisTitle !== '') {
-                $chart['xAxis']['title']['text'] = $this->DefaultXAxisTitle;
+                $chart->xAxis['title']['text'] = $this->DefaultXAxisTitle;
             }
 
             if ($this->Marker == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline'])) {
