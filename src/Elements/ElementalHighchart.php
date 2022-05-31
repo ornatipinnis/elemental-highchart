@@ -132,7 +132,10 @@ namespace aetchell\Highcharts\Elemental {
             if ((int) $this->PieInnerSize <= 0) {
                 $this->PieInnerSize = (int) self::$defaults['PieInnerSize'];
             }
+            
+            $this->DefaultSeriesLabel = '';            
         }
+     
 
         /**
          * Builds the chart config
@@ -257,9 +260,9 @@ namespace aetchell\Highcharts\Elemental {
 
                     if ($s->ShowYAxis == true) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
-                        if($s->SeriesLabel()) {
-                            $chart->yAxis[$c]['labels']['format'] = '{value}' . $s->SeriesLabel();
-                        }
+//                        if($s->SeriesLabel()) {
+//                            $chart->yAxis[$c]['labels']['format'] = '{value}' . $s->SeriesLabel();
+//                        }
                         
                         $chart->series[$c]['yAxis'] = $c;
                     }
@@ -284,9 +287,9 @@ namespace aetchell\Highcharts\Elemental {
                  * otherwise do a simple yAxis setup
                  */
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
-                if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
-                    $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
-                } 
+//                if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
+//                    $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
+//                } 
                 
             }
 
@@ -380,10 +383,12 @@ namespace aetchell\Highcharts\Elemental {
                         ->setAttribute('placeholder', 'Years')
                         ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
                 
-                
-                $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
-                        ->setAttribute('placeholder', 'mm')
-                        ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value.');
+                /**
+                 * Remove DefaultSeriesLabel for now
+                 */
+//                $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
+//                        ->setAttribute('placeholder', 'mm')
+//                        ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value. <b>Adding a label will prevent the Y axis from being formatted.</b>');
                 $ValuePrefix = TextField::create('ValuePrefix', 'Value prefix');
                 $ValueSuffix = TextField::create('ValueSuffix', 'Value suffix');
 

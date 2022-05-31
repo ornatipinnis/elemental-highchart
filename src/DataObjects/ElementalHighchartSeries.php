@@ -49,7 +49,7 @@ use SilverStripe\Security\Security;
             'DataPointMarkerNice' => 'Data point markers',
             'SeriesType' => 'Series type',
             'ShowYAxisNice' => 'Show Y axis',
-            'LabelNice' => 'Label',
+            //'LabelNice' => 'Label',
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
             'VisibleNice' => 'Visible'
@@ -119,6 +119,11 @@ use SilverStripe\Security\Security;
             }
             return DBField::create_field('HTMLText', '<i>no</i>');
         }
+        
+        public function onBeforeWrite() {
+            parent::onBeforeWrite();
+            $this->Label = '';
+        }
 
         public function getCMSFields() {
             $fields = parent::getCMSFields();
@@ -141,7 +146,7 @@ use SilverStripe\Security\Security;
 
             $SeriesNotes = LiteralField::create('SeriesNotes', '<p><strong>Note</strong> that the Y axis for the first series in the list will <strong>always</strong> be shown regardless of options selected.</p>');
             $Title = TextField::create('Title', 'Series title')->setAttribute('placeholder', 'rainfall')->setDescription('The Y axis title for the series. This is the title of the data being meassured, for example "rainfall"');
-            $Label = TextField::create('Label', 'Series label')->setAttribute('placeholder', 'mm')->setDescription('The Y axis label, this appears next to the Y axis value that is being measured, for example "mm" if the series is rainfall.');
+            $Label = TextField::create('Label', 'Series label')->setAttribute('placeholder', 'mm')->setDescription('The Y axis label, this appears next to the Y axis value that is being measured, for example "mm" if the series is rainfall. <b>Adding a label will prevent the Y axis from being formatted.</b>');
 
             $ValuePrefix = TextField::create('ValuePrefix', 'Value prefix');
             $ValueSuffix = TextField::create('ValueSuffix', 'Value suffix');
@@ -176,7 +181,10 @@ use SilverStripe\Security\Security;
 
             $fields->addFieldToTab('Root.Main', $SeriesNotes);
             $fields->addFieldToTab('Root.Main', $Title);
-            $fields->addFieldToTab('Root.Main', $Label);
+            /**
+             * Remove series label for now
+             */
+            //$fields->addFieldToTab('Root.Main', $Label);
             $fields->addFieldToTab('Root.Main', CompositeField::create(FieldGroup::create(
                                     $ValuePrefix,
                                     $ValueSuffix
