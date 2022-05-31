@@ -256,7 +256,10 @@ namespace aetchell\Highcharts\Elemental {
 
                     if ($s->ShowYAxis == true) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
-                        $chart->yAxis[$c]['labels']['format'] = '{value}' . ($s->SeriesLabel() ? $s->SeriesLabel() : '');
+                        if($s->SeriesLabel()) {
+                            $chart->yAxis[$c]['labels']['format'] = '{value}' . $s->SeriesLabel();
+                        }
+                        
                         $chart->series[$c]['yAxis'] = $c;
                     }
 
@@ -281,7 +284,10 @@ namespace aetchell\Highcharts\Elemental {
                  */
                 $chart->yAxis['lables']['formatter'] = '';
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
-                $chart->yAxis['labels']['format'] = '{value:,.0f}' . $this->DefaultSeriesLabel;
+                if($this->DefaultSeriesLabel !== '') {
+                    $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
+                }
+                
             }
 
             /**
