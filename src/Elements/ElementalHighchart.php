@@ -173,7 +173,7 @@ namespace aetchell\Highcharts\Elemental {
                         ],
                         'xAxis' => [
                             'title' => [
-                                'Text' => false
+                                'text' => false
                             ]
                         ],
             ];
@@ -283,7 +283,6 @@ namespace aetchell\Highcharts\Elemental {
                 /**
                  * otherwise do a simple yAxis setup
                  */
-                $chart->yAxis['lables']['formatter'] = '';
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
                 if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
                     $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;

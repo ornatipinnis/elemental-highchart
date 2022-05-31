@@ -64,7 +64,7 @@ use SilverStripe\Security\Security;
                 return $this->Label;
             }
 
-            if (!empty($this->ElementParent()->DefaultSeriesLabel) && $this->ElementParent()->DefaultSeriesLabel !== '') {
+            if (!empty($this->ElementParent()->DefaultSeriesLabel) && trim($this->ElementParent()->DefaultSeriesLabel) !== '') {
                 return $this->ElementParent()->DefaultSeriesLabel;
             }
             return false;
@@ -75,7 +75,7 @@ use SilverStripe\Security\Security;
                 return $this->Title;
             }
 
-            if (!empty($this->ElementParent()->DefaultSeriesTitle) && $this->ElementParent()->DefaultSeriesTitle !== '') {
+            if (!empty($this->ElementParent()->DefaultSeriesTitle) && trim($this->ElementParent()->DefaultSeriesTitle) !== '') {
                 return $this->ElementParent()->DefaultSeriesTitle;
             }
             return false;
