@@ -2,7 +2,11 @@
     document.addEventListener(
         "DOMContentLoaded",
         () => {                 
-
+            Highcharts.setOptions({
+                lang: {
+                  thousandsSep: ','
+                }                
+            });
             chartInst{$ID} = Highcharts.{$getLibTypeClass}(
                 'elemental-highchart{$ID}',
                 $chartConfig.RAW

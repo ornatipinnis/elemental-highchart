@@ -148,6 +148,7 @@ namespace aetchell\Highcharts\Elemental {
                         'title' => ['text' => $this->ChartTitle],
                         'tooltip' => [
                             'shared' => true,
+                            'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
                             'valuePrefix' => ($this->ValuePrefix ? $this->ValuePrefix : ''),
                             'valueSuffix' => ($this->ValueSuffix ? $this->ValueSuffix : '')
                         ],
