@@ -2,31 +2,31 @@
 
 namespace aetchell\Highcharts\Elemental {
 
-    use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
-    use aetchell\Highcharts\Libraries\HighchartsLibraries;
-    use DNADesign\Elemental\Models\BaseElement;
-    use SilverStripe\AssetAdmin\Forms\UploadField;
-    use SilverStripe\Assets\File;
-    use SilverStripe\Forms\CheckboxField;
-    use SilverStripe\Forms\CompositeField;
-    use SilverStripe\Forms\DropdownField;
-    use SilverStripe\Forms\FieldGroup;
-    use SilverStripe\Forms\FieldList;
-    use SilverStripe\Forms\GridField\GridField;
-    use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-    use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-    use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-    use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-    use SilverStripe\Forms\LiteralField;
-    use SilverStripe\Forms\NumericField;
-    use SilverStripe\Forms\OptionsetField;
-    use SilverStripe\Forms\TextField;
-    use SilverStripe\SiteConfig\SiteConfig;
-    use SilverStripe\View\Parsers\ShortcodeParser;
-    use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-    use UncleCheese\DisplayLogic\Forms\Wrapper;
-    use const BASE_PATH;
-    use function _t;
+use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
+use aetchell\Highcharts\Libraries\HighchartsLibraries;
+use DNADesign\Elemental\Models\BaseElement;
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\File;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\CompositeField;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\OptionsetField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\View\Parsers\ShortcodeParser;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use UncleCheese\DisplayLogic\Forms\Wrapper;
+use const BASE_PATH;
+use function _t;
 
     class ElementalHighchart extends BaseElement {
 
@@ -413,10 +413,10 @@ namespace aetchell\Highcharts\Elemental {
                 $RemoteDataSource = TextField::create('RemoteDataSource', 'Remote data source');
                 $RemoteDataSource->setDescription('If your data is pulled from an API or remove source, enter the full URL to the data here.');
 
-                $EnablePolling = NumericField::create('EnablePolling', 'Poll for new data interval');
+                $EnablePolling = TextField::create('EnablePolling', 'Poll for new data interval');
                 $EnablePolling->setDescription('Poll for new data every x seconds. Polling will only occur if the value is above 0. Polling is only possible when the datasouce is set to "API" and the chart type is not "pie"');
 
-                $ChartHeight = NumericField::create('ChartHeight', 'Chart height');
+                $ChartHeight = TextField::create('ChartHeight', 'Chart height');
                 $ChartHeight->setDescription('Height of the chart on the page in pixels.');
                 $ChartHeight->setAttribute('placeholder', self::$defaults['ChartHeight']);
 
