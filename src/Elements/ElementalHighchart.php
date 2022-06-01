@@ -78,6 +78,9 @@ namespace aetchell\Highcharts\Elemental {
         private static $has_many = [
             'Series' => ElementalHighchartSeries::class,
         ];
+        private static $cascade_deletes = [
+            'Series',
+        ];
         private static $defaults = [
             'LibType' => 'chart',
             'DefaultSeries' => 'line',
@@ -132,10 +135,9 @@ namespace aetchell\Highcharts\Elemental {
             if ((int) $this->PieInnerSize <= 0) {
                 $this->PieInnerSize = (int) self::$defaults['PieInnerSize'];
             }
-            
-            $this->DefaultSeriesLabel = '';            
+
+            $this->DefaultSeriesLabel = '';
         }
-     
 
         /**
          * Builds the chart config
@@ -180,8 +182,8 @@ namespace aetchell\Highcharts\Elemental {
                             ]
                         ],
             ];
-            
-            if($this->DefaultXAxisTitle !== '') {
+
+            if ($this->DefaultXAxisTitle !== '') {
                 $chart->xAxis['title']['text'] = $this->DefaultXAxisTitle;
             }
 
@@ -263,7 +265,7 @@ namespace aetchell\Highcharts\Elemental {
 //                        if($s->SeriesLabel()) {
 //                            $chart->yAxis[$c]['labels']['format'] = '{value}' . $s->SeriesLabel();
 //                        }
-                        
+
                         $chart->series[$c]['yAxis'] = $c;
                     }
 
@@ -289,8 +291,7 @@ namespace aetchell\Highcharts\Elemental {
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
 //                if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
 //                    $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
-//                } 
-                
+//                }
             }
 
             /**
@@ -382,7 +383,7 @@ namespace aetchell\Highcharts\Elemental {
                 $DefaultXAxisTitle = TextField::create('DefaultXAxisTitle', 'X axis title')
                         ->setAttribute('placeholder', 'Years')
                         ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
-                
+
                 /**
                  * Remove DefaultSeriesLabel for now
                  */
@@ -396,7 +397,7 @@ namespace aetchell\Highcharts\Elemental {
 
                 $ChartSubtitle = HTMLEditorField::create('ChartSubtitle', 'Chart Subtitle')->setRows(3);
 
-                $GridConf = GridFieldConfig_RelationEditor::create(10);
+                $GridConf = GridFieldConfig_RecordEditor::create(10);
                 $GridConf->addComponent(new GridFieldOrderableRows('SeriesOrder'));
 
                 $remove = [];
