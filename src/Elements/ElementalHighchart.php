@@ -14,7 +14,7 @@ namespace aetchell\Highcharts\Elemental {
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\GridField\GridField;
     use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-    use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+    use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
     use SilverStripe\Forms\GridField\GridFieldFilterHeader;
     use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
     use SilverStripe\Forms\LiteralField;
