@@ -25,7 +25,7 @@ namespace aetchell\Highcharts\Libraries {
             if (
                     isset($SiteConfig->HighchartAdditionalLibs) && $SiteConfig->HighchartAdditionalLibs !== '' 
             ) {
-                $HighchartAdditionalLibs = json_decode($SiteConfig->HighchartAdditionalLibs);
+                $HighchartAdditionalLibs = explode(',',$SiteConfig->HighchartAdditionalLibs);
             }            
 
             /**
