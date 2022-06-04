@@ -10,10 +10,12 @@
         <div class="">
             <figure class="highchart-container">
                 <div id="elemental-highchart{$ID}" class="highchart" data-type="{$LibType}" style="height: {$ChartHeight}px;"></div>
-                <% if $ChartCaption || $AllowFullscreen %>
+                <% if $ChartCaption %>
                 <figcaption class="chart-caption">
                     $ChartCaption                
                 </figcaption>
+                <% end_if %>
+                <% if $EnableExporting || $AllowFullscreen %>
                 <div class="chart-controls">
                 <% if $EnableExporting %><i class="fa fa-download"></i> <a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}">Download data</a><% end_if %>
                 <% if $AllowFullscreen %><i class="fa fa-expand"></i> <a href="javascript:void(0);" id="eh-fs-activator{$ID}">View full screen</a><% end_if %>
