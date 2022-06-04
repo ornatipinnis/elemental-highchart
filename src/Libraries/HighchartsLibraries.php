@@ -55,11 +55,7 @@ namespace aetchell\Highcharts\Libraries {
                         $HighchartsJSRequire[] = ($HighchartToUse !== false ?
                                 [self::$HighchartsURLBase, $HighchartToUse, 'modules/data.js'] :
                                 [self::$HighchartsURLBase, 'modules/data.js']);
-                        
-                        $HighchartsJSRequire[] = ($HighchartToUse !== false ?
-                                [self::$HighchartsURLBase, $HighchartToUse, 'modules/solid-gauge.js'] :
-                                [self::$HighchartsURLBase, 'modules/solid-gauge.js']);
-                        
+
                         if(is_array($HighchartAdditionalLibs)) {
                             foreach($HighchartAdditionalLibs as $extraFile) {
                                 $HighchartsJSRequire[] = ($HighchartToUse !== false ?

@@ -40,7 +40,6 @@ use function _t;
             'CSSClass' => 'Varchar(40)',
             'LibType' => 'Enum(array("chart","stock"),"chart")',
             'DefaultSeries' => 'Enum(array("line","spline","area","areaspline","bar","column","pie"),"line")',
-            'DefaultSeriesLabel' => 'Varchar(20)',
             'DefaultSeriesTitle' => 'Varchar(40)',
             'DefaultXAxisTitle' => 'Varchar(40)',
             'ValuePrefix' => 'Varchar(20)',
@@ -53,7 +52,6 @@ use function _t;
             'EnableSeriesStacking' => 'Boolean',
             'SeriesStacking' => 'Enum(array("normal","percent"),"normal")',
             'EnableExporting' => 'Boolean',
-            //highstock options
             'Navigator' => 'Boolean',
             'RangeSelector' => 'Boolean',
             'AllowFullscreen' => 'Boolean',
@@ -63,10 +61,6 @@ use function _t;
             'PieInnerSize' => 'Int',
             'Marker' => 'Boolean',
             'MarkerSymbol' => 'Enum(array("circle","square","triangle","triangle-down"),"circle")',
-                // consider adding chart min/max
-                // could get difficult to manage on multi-series views
-                //'YMin' => 'Int',
-                //'YMax' => 'Int',
         ];
         private static $has_one = [
             'File' => File::class
@@ -135,8 +129,6 @@ use function _t;
             if ((int) $this->PieInnerSize <= 0) {
                 $this->PieInnerSize = (int) self::$defaults['PieInnerSize'];
             }
-
-            $this->DefaultSeriesLabel = '';
         }
 
         /**
@@ -262,10 +254,6 @@ use function _t;
 
                     if ($s->ShowYAxis == true) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
-//                        if($s->SeriesLabel()) {
-//                            $chart->yAxis[$c]['labels']['format'] = '{value}' . $s->SeriesLabel();
-//                        }
-
                         $chart->series[$c]['yAxis'] = $c;
                     }
 
@@ -289,9 +277,6 @@ use function _t;
                  * otherwise do a simple yAxis setup
                  */
                 $chart->yAxis['title']['text'] = $this->DefaultSeriesTitle;
-//                if($this->DefaultSeriesLabel && $this->DefaultSeriesLabel !== '') {
-//                    $chart->yAxis['labels']['format'] = '{value}'.$this->DefaultSeriesLabel;
-//                }
             }
 
             /**
@@ -332,7 +317,6 @@ use function _t;
                 $fields->removeByName('ChartCaption');
                 $fields->removeByName('LibType');
                 $fields->removeByName('DefaultSeries');
-                $fields->removeByName('DefaultSeriesLabel');
                 $fields->removeByName('DefaultSeriesTitle');
                 $fields->removeByNAme('DefaultXAxisTitle');
                 $fields->removeByName('ChartTitle');
@@ -383,13 +367,6 @@ use function _t;
                 $DefaultXAxisTitle = TextField::create('DefaultXAxisTitle', 'X axis title')
                         ->setAttribute('placeholder', 'Years')
                         ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
-
-                /**
-                 * Remove DefaultSeriesLabel for now
-                 */
-                $DefaultSeriesLabel = TextField::create('DefaultSeriesLabel', 'Y axis label')
-                        ->setAttribute('placeholder', 'mm')
-                        ->setDescription('The default Y axis label, this appears next to the Y axis value(s) that is being measured, for example "mm" if the chart displays rainfall data. If you set Y axis labels on a custom series config then it will override this chart wide value. <b>Adding a label will prevent the Y axis from being formatted.</b>');
                 $ValuePrefix = TextField::create('ValuePrefix', 'Value prefix');
                 $ValueSuffix = TextField::create('ValueSuffix', 'Value suffix');
 
@@ -532,7 +509,6 @@ use function _t;
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
                                         $DefaultXAxisTitle,
                                         $DefaultSeriesTitle,
-                                        //$DefaultSeriesLabel,
                                         $ValuePrefix,
                                         $ValueSuffix
                                 ),

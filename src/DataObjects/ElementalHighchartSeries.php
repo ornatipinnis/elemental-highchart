@@ -20,7 +20,7 @@ use SilverStripe\Security\Security;
         private static $db = [
             'Title' => 'Varchar(255)',
             'SeriesType' => 'Varchar(50)',
-            'Label' => 'Varchar(255)',
+            //'Label' => 'Varchar(255)',
             'ValuePrefix' => 'Varchar(20)',
             'ValueSuffix' => 'Varchar(20)',
             'ShowYAxis' => 'Boolean',
@@ -92,12 +92,12 @@ use SilverStripe\Security\Security;
             return DBField::create_field('HTMLText', '<i>none</i>');
         }
 
-        public function LabelNice() {
-            if ($this->Label == true) {
-                return $this->Label;
-            }
-            return DBField::create_field('HTMLText', '<i>none</i>');
-        }
+//        public function LabelNice() {
+//            if ($this->Label == true) {
+//                return $this->Label;
+//            }
+//            return DBField::create_field('HTMLText', '<i>none</i>');
+//        }
 
         public function ShowYAxisNice() {
             if ($this->ShowYAxis == true) {
@@ -131,7 +131,7 @@ use SilverStripe\Security\Security;
             $fields->removeByName('ElementParentID');
             $fields->removeByName('Title');
             $fields->removeByName('SeriesType');
-            $fields->removeByName('Label');
+            //$fields->removeByName('Label');
             $fields->removeByName('ValuePrefix');
             $fields->removeByName('ValueSuffix');
             $fields->removeByName('ShowYAxis');
