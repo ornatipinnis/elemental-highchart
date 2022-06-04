@@ -10,7 +10,7 @@ The default template uses [fontawesome v4](https://fontawesome.com/v4/) for char
 The follwing Silverstripe modules are also required in addition to the core framework:
 - [dnadesign/silverstripe-elemental](https://github.com/silverstripe/silverstripe-elemental): ^4
 - [silverstripe/display-logic](https://github.com/unclecheese/silverstripe-display-logic) ^2.0    
-- [symbiote/silverstripe-multivaluefield](https://github.com/symbiote/silverstripe-multivaluefield) ^5ß
+- [symbiote/silverstripe-multivaluefield](https://github.com/symbiote/silverstripe-multivaluefield) ^5
 
 ## Templates
 You can override the default template by copying `/templates/polypterus/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/polypterus/Highcharts/Elemental/ElementaHighchart.ss`
