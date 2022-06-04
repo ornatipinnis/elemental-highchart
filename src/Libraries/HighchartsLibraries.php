@@ -11,7 +11,8 @@ namespace aetchell\Highcharts\Libraries {
 
         public function Libraries($SiteConfig = false, $Extra = false) {
             $HighchartsJSRequire = [];
-            $HighchartsJSRequire[] = ['aetchell/elemental-highchart:client/js/HighchartElemental.js'];
+            // not currently used, here as a future placeholder
+            //$HighchartsJSRequire[] = ['aetchell/elemental-highchart:client/js/HighchartElemental.js'];
 
             $HighchartToUse = false;
 
