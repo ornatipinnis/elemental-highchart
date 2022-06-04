@@ -56,14 +56,6 @@ namespace aetchell\Highcharts\Libraries {
                         $HighchartsJSRequire[] = ($HighchartToUse !== false ?
                                 [self::$HighchartsURLBase, $HighchartToUse, 'modules/data.js'] :
                                 [self::$HighchartsURLBase, 'modules/data.js']);
-
-                        if(is_array($HighchartAdditionalLibs)) {
-                            foreach($HighchartAdditionalLibs as $extraFile) {
-                                $HighchartsJSRequire[] = ($HighchartToUse !== false ?
-                                        [self::$HighchartsURLBase, $HighchartToUse, $extraFile] :
-                                        [self::$HighchartsURLBase, $extraFile]);                                
-                            }
-                        }
                         
                         if (isset($Extra['Exporting']) && $Extra['Exporting'] == true) {
                             $HighchartsJSRequire[] = ($HighchartToUse !== false ?
@@ -78,6 +70,14 @@ namespace aetchell\Highcharts\Libraries {
                                 [self::$HighchartsURLBase, $HighchartToUse, 'modules/export-data.js'] :
                                 [self::$HighchartsURLBase, 'modules/export-data.js']);                              
                         }
+                        
+                        if(is_array($HighchartAdditionalLibs)) {
+                            foreach($HighchartAdditionalLibs as $extraFile) {
+                                $HighchartsJSRequire[] = ($HighchartToUse !== false ?
+                                        [self::$HighchartsURLBase, $HighchartToUse, $extraFile] :
+                                        [self::$HighchartsURLBase, $extraFile]);                                
+                            }
+                        }                        
 
 
 
