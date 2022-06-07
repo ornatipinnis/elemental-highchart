@@ -24,9 +24,8 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use Symbiote\MultiValueField\Fields\MultiValueTextField;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
-use const BASE_PATH;
-use function _t;
 
     class ElementalHighchart extends BaseElement {
 
@@ -61,6 +60,8 @@ use function _t;
             'PieInnerSize' => 'Int',
             'Marker' => 'Boolean',
             'MarkerSymbol' => 'Enum(array("circle","square","triangle","triangle-down"),"circle")',
+            'HighchartColoursOverride' => 'Enum(array("global","chart"),"global")',
+            'HighchartColours' => 'MultiValueField',
         ];
         private static $has_one = [
             'File' => File::class
@@ -89,7 +90,8 @@ use function _t;
             'PieInnerSize' => 0,
             'ZoomType' => true,
             'Marker' => true,
-            'MarkerSymbol' => 'circle'
+            'MarkerSymbol' => 'circle',
+            'HighchartColoursOverride' => 'global'
         ];
         private static $inline_editable = false;
         var $LibrariesExtra = [];
@@ -183,10 +185,16 @@ use function _t;
                 $chart->plotOptions['series']['marker']['enabled'] = true;
                 $chart->plotOptions['series']['marker']['symbol'] = $this->MarkerSymbol;
             }
-            $SiteConfig = SiteConfig::current_site_config();
 
-            if ($SiteConfig->HighchartColours !== '') {
-                $chart->colors = explode(',', $SiteConfig->HighchartColours);
+            if ($this->HighchartColoursOverride == 'global') {
+                $SiteConfig = SiteConfig::current_site_config();
+                if ($SiteConfig->HighchartColours !== '') {
+                    $chart->colors = explode(',', $SiteConfig->HighchartColours);
+                }
+            } else {
+                if ($this->HighchartColours !== '') {
+                    $chart->colors = explode(',', $this->HighchartColours);
+                }
             }
 
             if ($this->LibType == 'stock') {
@@ -342,6 +350,8 @@ use function _t;
                 $fields->removeByName('PieInnerSize');
                 $fields->removeByName('Marker');
                 $fields->removeByName('MarkerSymbol');
+                $fields->removeByName('HighchartColoursOverride');
+                $fields->removeByName('HighchartColours');
 
                 $Content = HTMLEditorField::create('Content', 'Content')->setRows(10)->setDescription('Appears in a column to the left of the chart.');
 
@@ -408,7 +418,6 @@ use function _t;
                 $EnableSeriesStacking->setDescription('This will enable series stacking, note that this will not work or make sense for certain series types.');
 
                 $SeriesStacking = DropdownField::create('SeriesStacking', 'Stacking type')->setSource($this->dbObject('SeriesStacking')->enumValues());
-
                 $EnableExporting = CheckboxField::create('EnableExporting', 'Allow exporting of chart data');
                 $EnableExporting->setDescription('This will enable the exporting menu on the chart.');
 
@@ -446,7 +455,14 @@ use function _t;
                         ->orIf('DefaultSeries')->isEqualTo('area')
                         ->orIf('DefaultSeries')->isEqualTo('areaspline')
                         ->orIf('DefaultSeries')->isEqualTo('pie');
-
+                
+                $HighchartColoursOverride = OptionsetField::create('HighchartColoursOverride', 'Chart colours')->setSource($this->dbObject('HighchartColoursOverride')->enumValues())
+                        ->setDescription('Use either the global colour array from settings > highcharts or add a new colour array here that will be used on this chart only.');
+                
+                $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
+                        ->setAttribute('placeholder', '#ff0000');
+                $HighchartColours->setDescription('Add one or more hex formatted colours to this list to use in your charts. for example "#ff0000"');
+                //$HighchartColours->displayIf('HighchartColoursOverride')->isEqualTo('chart');
                 /**
                  * Display logic
                  */
@@ -514,6 +530,9 @@ use function _t;
                                 ),
                                 $SeriesConfigHelp
                         )->setTitle('Default series formatting'));
+
+                $fields->addFieldToTab('Root.ChartData', $HighchartColoursOverride);
+                $fields->addFieldToTab('Root.ChartData', Wrapper::create($HighchartColours)->hideIf('HighchartColoursOverride')->isEqualTo('global')->end());
                 $fields->addFieldToTab('Root.ChartData', Wrapper::create($Series)->hideIf('DefaultSeries')->isEqualTo('pie')->end());
                 $fields->addFieldToTab('Root.Help', $HighchartsLink);
             });
