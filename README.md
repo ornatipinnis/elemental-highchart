@@ -13,7 +13,7 @@ The follwing Silverstripe modules are also required in addition to the core fram
 - [symbiote/silverstripe-multivaluefield](https://github.com/symbiote/silverstripe-multivaluefield) ^5
 
 ## Templates
-You can override the default template by copying `/templates/polypterus/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/polypterus/Highcharts/Elemental/ElementaHighchart.ss`
+You can override the default template by copying `/templates/aetchell/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/aetchell/Highcharts/Elemental/ElementaHighchart.ss`
 
 ## CSS
 Sample styles can be found in:
