@@ -18,7 +18,7 @@
                 <% if $EnableExporting || $AllowFullscreen || $DataSourceURL %>
                 <div class="chart-controls">
                     <% if $DataSourceURL %>
-                    <i class="fa fa-external-link" aria-hidden="true"></i> <a href="{$DataSourceURL}" id="eh-ehcsva-activator{$ID}" rel="external" target="_blank">Data source</a>
+                    <i class="fa fa-external-link" aria-hidden="true"></i> <a href="{$DataSourceURL}" id="eh-ehcsva-data-source{$ID}" rel="external" target="_blank">Data source</a>
                     <% end_if %>
                     <% if $EnableExporting %>
                     <i class="fa fa-download" aria-hidden="true"></i> <a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}">Download data</a>
