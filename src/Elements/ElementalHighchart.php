@@ -60,7 +60,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             'PieInnerSize' => 'Int',
             'Marker' => 'Boolean',
             'MarkerSymbol' => 'Enum(array("circle","square","triangle","triangle-down"),"circle")',
-            'HighchartColoursOverride' => 'Enum(array("global","chart"),"global")',
+            'HighchartColoursOverride' => 'Enum(array("Global","Chart"),"Global")',
             'HighchartColours' => 'MultiValueField',
             'DataSourceURL' => 'Text'
         ];
@@ -92,7 +92,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             'ZoomType' => true,
             'Marker' => true,
             'MarkerSymbol' => 'circle',
-            'HighchartColoursOverride' => 'global'
+            'HighchartColoursOverride' => 'Global'
         ];
         private static $inline_editable = false;
         var $LibrariesExtra = [];
@@ -187,7 +187,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $chart->plotOptions['series']['marker']['symbol'] = $this->MarkerSymbol;
             }
 
-            if ($this->HighchartColoursOverride == 'global') {
+            if ($this->HighchartColoursOverride == 'Global') {
                 $SiteConfig = SiteConfig::current_site_config();
                 if ($SiteConfig->HighchartColours !== '') {
                     $chart->colors = explode(',', $SiteConfig->HighchartColours);
@@ -539,7 +539,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         )->setTitle('Default series formatting'));
 
                 $fields->addFieldToTab('Root.ChartData', $HighchartColoursOverride);
-                $fields->addFieldToTab('Root.ChartData', Wrapper::create($HighchartColours)->hideIf('HighchartColoursOverride')->isEqualTo('global')->end());
+                $fields->addFieldToTab('Root.ChartData', Wrapper::create($HighchartColours)->hideIf('HighchartColoursOverride')->isEqualTo('Global')->end());
                 $fields->addFieldToTab('Root.ChartData', Wrapper::create($Series)->hideIf('DefaultSeries')->isEqualTo('pie')->end());
                 $fields->addFieldToTab('Root.Help', $HighchartsLink);
             });
