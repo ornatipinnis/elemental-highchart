@@ -62,6 +62,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             'MarkerSymbol' => 'Enum(array("circle","square","triangle","triangle-down"),"circle")',
             'HighchartColoursOverride' => 'Enum(array("global","chart"),"global")',
             'HighchartColours' => 'MultiValueField',
+            'DataSourceURL' => 'Text'
         ];
         private static $has_one = [
             'File' => File::class
@@ -352,6 +353,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $fields->removeByName('MarkerSymbol');
                 $fields->removeByName('HighchartColoursOverride');
                 $fields->removeByName('HighchartColours');
+                $fields->removeByName('DataSourceURL');
 
                 $Content = HTMLEditorField::create('Content', 'Content')->setRows(10)->setDescription('Appears in a column to the left of the chart.');
 
@@ -462,6 +464,10 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
                         ->setAttribute('placeholder', '#ff0000');
                 $HighchartColours->setDescription('Add one or more hex formatted colours to this list to use in your charts. for example "#ff0000"');
+                
+                
+                //DataOriginURL
+                $DataSourceURL = TextField::create('DataSourceURL', 'Data source URL')->setDescription('Optionally add a URL here for the source of the data.');
                 //$HighchartColours->displayIf('HighchartColoursOverride')->isEqualTo('chart');
                 /**
                  * Display logic
@@ -519,6 +525,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         )->setTitle('Chart attributes'));
 
                 $fields->addFieldToTab('Root.ChartData', $DataSource);
+                $fields->addFieldToTab('Root.ChartData', $DataSourceURL);
                 $fields->addFieldToTab('Root.ChartData', $RemoteDataSource);
                 $fields->addFieldToTab('Root.ChartData', $EnablePolling);
                 $fields->addFieldToTab('Root.ChartData', $File);

@@ -15,14 +15,17 @@
                     $ChartCaption                
                 </figcaption>
                 <% end_if %>
-                <% if $EnableExporting || $AllowFullscreen %>
+                <% if $EnableExporting || $AllowFullscreen || $DataSourceURL %>
                 <div class="chart-controls">
-                <% if $EnableExporting %>
-                <i class="fa fa-download"></i> <a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}">Download data</a>
-                <% end_if %>
-                <% if $AllowFullscreen %>
-                <i class="fa fa-expand"></i> <a href="javascript:void(0);" id="eh-fs-activator{$ID}">View full screen</a>
-                <% end_if %>
+                    <% if $DataSourceURL %>
+                    <i class="fa fa-external-link" aria-hidden="true"></i> <a href="{$DataSourceURL}" id="eh-ehcsva-activator{$ID}" rel="external" target="_blank">Data source</a>
+                    <% end_if %>
+                    <% if $EnableExporting %>
+                    <i class="fa fa-download" aria-hidden="true"></i> <a href="javascript:void(0);" id="eh-ehcsva-activator{$ID}">Download data</a>
+                    <% end_if %>
+                    <% if $AllowFullscreen %>
+                    <i class="fa fa-expand" aria-hidden="true"></i> <a href="javascript:void(0);" id="eh-fs-activator{$ID}">View full screen</a>
+                    <% end_if %>
                 </div>
                 <% end_if %>
                 <% include chartJS %>
