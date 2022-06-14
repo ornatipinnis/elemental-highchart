@@ -14,6 +14,8 @@ namespace aetchell\Highcharts\Libraries {
             // not currently used, here as a future placeholder
             //$HighchartsJSRequire[] = ['aetchell/elemental-highchart:client/js/HighchartElemental.js'];
 
+            $HighchartAdditionalLibs = false;
+            
             $HighchartToUse = false;
 
             if (
@@ -21,9 +23,9 @@ namespace aetchell\Highcharts\Libraries {
             ) {
                 $HighchartToUse = $SiteConfig->HighchartVersionNumber;
             }
-            
+           
             if (
-                    isset($SiteConfig->HighchartAdditionalLibs) && $SiteConfig->HighchartAdditionalLibs !== '' 
+                    $SiteConfig->HighchartAdditionalLibs != ''
             ) {
                 $HighchartAdditionalLibs = explode(',',$SiteConfig->HighchartAdditionalLibs);
             }            
@@ -70,8 +72,7 @@ namespace aetchell\Highcharts\Libraries {
                                 [self::$HighchartsURLBase, $HighchartToUse, 'modules/export-data.js'] :
                                 [self::$HighchartsURLBase, 'modules/export-data.js']);                              
                         }
-                        
-                        if(is_array($HighchartAdditionalLibs)) {
+                        if(is_array($HighchartAdditionalLibs) && count($HighchartAdditionalLibs) >= 1) {
                             foreach($HighchartAdditionalLibs as $extraFile) {
                                 $HighchartsJSRequire[] = ($HighchartToUse !== false ?
                                         [self::$HighchartsURLBase, $HighchartToUse, $extraFile] :
