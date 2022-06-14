@@ -525,10 +525,10 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         )->setTitle('Chart attributes'));
 
                 $fields->addFieldToTab('Root.ChartData', $DataSource);
-                $fields->addFieldToTab('Root.ChartData', $DataSourceURL);
                 $fields->addFieldToTab('Root.ChartData', $RemoteDataSource);
                 $fields->addFieldToTab('Root.ChartData', $EnablePolling);
                 $fields->addFieldToTab('Root.ChartData', $File);
+                $fields->addFieldToTab('Root.ChartData', $DataSourceURL);
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
                                         $DefaultXAxisTitle,
                                         $DefaultSeriesTitle,
