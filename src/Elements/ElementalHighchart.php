@@ -173,8 +173,15 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         ],
                         'xAxis' => [
                             'title' => [
-                                'text' => false
+                                'text' => false,
                             ]
+                            /**
+                             * Todo
+                             * Add this as a config value on the elemental block
+                             * linear, logarithmic, datetime or category
+                             * https://api.highcharts.com/highcharts/xAxis.type
+                             */
+                            //,'type' => 'category'
                         ],
             ];
 
