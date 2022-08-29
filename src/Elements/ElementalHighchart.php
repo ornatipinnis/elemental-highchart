@@ -149,7 +149,8 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         'tooltip' => [
                             'shared' => true,
                             'outside' => true,
-                            'useHTML' => true,
+                            'style' => ['zIndex' => 9999],
+                            //'useHTML' => true,
                             //'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
                             'valuePrefix' => ($this->ValuePrefix ? $this->ValuePrefix : ''),
                             'valueSuffix' => ($this->ValueSuffix ? $this->ValueSuffix : '')
