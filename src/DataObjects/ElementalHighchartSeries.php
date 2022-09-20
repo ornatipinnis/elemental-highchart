@@ -52,9 +52,10 @@ use SilverStripe\Security\Security;
             //'LabelNice' => 'Label',
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
-            'VisibleNice' => 'Visible'
-            
+            'VisibleNice' => 'Visible'  
         ];
+        
+        private static $default_sort = 'SeriesOrder ASC';
 
         /**
          * Helper fields
