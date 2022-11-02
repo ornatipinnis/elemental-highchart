@@ -354,7 +354,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $fields->removeByName('AllowFullscreen');
                 $fields->removeByName('ConnectNulls');
                 $fields->removeByName('ZoomType');
-                $fields->removeByName('History'); // this one seems to have issues
+                //$fields->removeByName('History'); // this one seems to have issues
                 $fields->removeByName('ValuePrefix');
                 $fields->removeByName('ValueSuffix');
                 $fields->removeByName('ChartHeight');
