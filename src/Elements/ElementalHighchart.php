@@ -21,14 +21,29 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Forms\TextField;
+use SilverStripe\GraphQL\Controller;
 use SilverStripe\SiteConfig\SiteConfig;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use Symbiote\MultiValueField\Fields\MultiValueTextField;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
+use function Safe\fclose;
+use function Safe\file_get_contents;
+use function Safe\fopen;
+use function Safe\json_encode;
+use function Safe\preg_replace;
 
     class ElementalHighchart extends BaseElement {
 
+        public function StoredNonce() {
+            $con = Controller::curr();
+            if(method_exists($con, 'StoredNonce')) {
+                return $con->StoredNonce();    
+            }
+            return false;
+        }         
+        
+        
         private static $singular_name = 'Highchart';
         private static $plural_name = 'Highcharts';
         private static $icon = 'font-icon-chart-line';
@@ -273,7 +288,10 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
 
                     if ($s->ShowYAxis == true) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
-                        $chart->series[$c]['yAxis'] = $c;
+                        //$chart->series[$c]['yAxis'] = $c;
+                    if(!empty($s->yAxis)) {
+                        $chart->series[$c]['yAxis'] = (int)$s->yAxis;
+                    }                               
                     }
 
                     if ($s->Marker == true && in_array($s->SeriesType, ['line', 'spline', 'area', 'areaspline'])) {
@@ -287,7 +305,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
 
                     if ($s->ValueSuffix) {
                         $chart->series[$c]['tooltip']['valueSuffix'] = $s->ValueSuffix;
-                    }
+                    }               
 
                     $c++;
                 }
@@ -683,7 +701,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             $blockSchema = parent::provideBlockSchema();
             $blockSchema['content'] = $this->Title . ' - ' . $this->LibType . '/' . $this->DefaultSeries . ' - datasource: ' . $this->DataSource;
             return $blockSchema;
-        }
+        }       
 
     }
 
