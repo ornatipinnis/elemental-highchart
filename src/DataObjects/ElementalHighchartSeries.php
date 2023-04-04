@@ -30,6 +30,7 @@ use SilverStripe\Security\Security;
             'ConnectNulls' => 'Boolean',
             'Visible' => 'Boolean',
             'SeriesOrder' => 'Int',
+            'yAxis' => 'Varchar(10)'
         ];
         private static $has_one = [
             'ElementParent' => ElementalHighchart::class
@@ -52,7 +53,8 @@ use SilverStripe\Security\Security;
             //'LabelNice' => 'Label',
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
-            'VisibleNice' => 'Visible'  
+            'VisibleNice' => 'Visible',
+            'yAxis' => 'yAxis group'
         ];
         
         private static $default_sort = 'SeriesOrder ASC';
@@ -79,7 +81,7 @@ use SilverStripe\Security\Security;
             if (!empty($this->ElementParent()->DefaultSeriesTitle) && trim($this->ElementParent()->DefaultSeriesTitle) !== '') {
                 return $this->ElementParent()->DefaultSeriesTitle;
             }
-            return false;
+            return 'untitled series';
         }
 
         /**
@@ -142,6 +144,7 @@ use SilverStripe\Security\Security;
             $fields->removeByName('Marker');
             $fields->removeByName('MarkerSymbol');
             $fields->removeByName('Visible');
+            $fields->removeByName('yAxis');
 
             $SeriesTypes = $this->ElementParent()->dbObject('DefaultSeries')->enumValues();
 
@@ -159,6 +162,22 @@ use SilverStripe\Security\Security;
             $ShowYAxis->setDescription('Show the Y axis for this series. Note that the Y axis for the first series in the list will always be shown.');
             $ShowYAxisPosition = OptionsetField::create('ShowYAxisPosition', 'Y Axis position')->setSource($this->dbObject('ShowYAxisPosition')->enumValues());
 
+            $yAxisSet = ($this->ElementParent()->Series()->count());
+            $yAxisGroup = false;
+            if ($yAxisSet > 0) {
+                $c = 0;
+                $yAxisGroupList = [];
+               $c = 1;
+                foreach($this->ElementParent()->Series() as $k => $v) {
+                    $yAxisGroupList[$c - 1] = $v->SeriesTitle();
+                    
+                    $c++;
+                }
+
+                $yAxisGroup = DropdownField::create('yAxis', 'Add to a Y axis group', $yAxisGroupList)->setEmptyString('(none)');
+                $yAxisGroup->displayIf('ShowYAxis')->isChecked();
+            }            
+            
             $Visible = CheckboxField::create('Visible', 'Visible');
             $Visible->setDescription('Sets the initial visibility of the series. uncheck this to have the series disabled when the chart first loads.');
 
@@ -194,7 +213,7 @@ use SilverStripe\Security\Security;
                     $SeriesType,
                     $Visible
                     )->setTitle('Series Attributes'));
-            $fields->addFieldToTab('Root.Main', CompositeField::create($ShowYAxis, $ShowYAxisPosition)->setTitle('Y Axis'));
+            $fields->addFieldToTab('Root.Main', CompositeField::create($ShowYAxis, $ShowYAxisPosition, $yAxisGroup)->setTitle('Y Axis'));
 
             $fields->addFieldToTab('Root.Main', CompositeField::create($MarkerNotes, $Marker, $MarkerSymbol)->setTitle('Series marker'));
             return $fields;
