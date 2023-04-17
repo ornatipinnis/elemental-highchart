@@ -286,7 +286,7 @@ use function Safe\preg_replace;
                         ]
                     ];
 
-                    if ($s->ShowYAxis == true) {
+                    if ($s->ShowYAxis == true && $s->ShowTitle) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
                         //$chart->series[$c]['yAxis'] = $c;
                     if(!empty($s->yAxis)) {
