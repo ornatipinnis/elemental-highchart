@@ -30,7 +30,8 @@ use SilverStripe\Security\Security;
             'ConnectNulls' => 'Boolean',
             'Visible' => 'Boolean',
             'SeriesOrder' => 'Int',
-            'yAxis' => 'Varchar(10)'
+            'yAxis' => 'Varchar(10)',
+            'ShowTitle' => 'Boolean',
         ];
         private static $has_one = [
             'ElementParent' => ElementalHighchart::class
@@ -41,7 +42,8 @@ use SilverStripe\Security\Security;
             'ShowYAxisPosition' => 'left',
             'Marker' => true,
             'MarkerSymbol' => 'circle',
-            'Visible' => true
+            'Visible' => true,
+            'ShowTitle' => true
         ];
         private static $singular_name = 'Series';
         private static $plural_name = 'Series';
@@ -50,6 +52,7 @@ use SilverStripe\Security\Security;
             'DataPointMarkerNice' => 'Data point markers',
             'SeriesType' => 'Series type',
             'ShowYAxisNice' => 'Show Y axis',
+            'ShowTitleNice' => 'Show Y axis title',
             //'LabelNice' => 'Label',
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
@@ -108,6 +111,14 @@ use SilverStripe\Security\Security;
             }
             return DBField::create_field('HTMLText', '<i>no</i>');
         }
+        
+        
+        public function ShowTitleNice() {
+            if ($this->ShowTitle == true) {
+                return 'yes';
+            }
+            return 'no';
+        }           
 
         public function VisibleNice() {
             if ($this->Visible == true) {
@@ -145,6 +156,7 @@ use SilverStripe\Security\Security;
             $fields->removeByName('MarkerSymbol');
             $fields->removeByName('Visible');
             $fields->removeByName('yAxis');
+            $fields->removeByName('ShowTitle');
 
             $SeriesTypes = $this->ElementParent()->dbObject('DefaultSeries')->enumValues();
 
@@ -162,6 +174,8 @@ use SilverStripe\Security\Security;
             $ShowYAxis->setDescription('Show the Y axis for this series. Note that the Y axis for the first series in the list will always be shown.');
             $ShowYAxisPosition = OptionsetField::create('ShowYAxisPosition', 'Y Axis position')->setSource($this->dbObject('ShowYAxisPosition')->enumValues());
 
+            $ShowTitle = CheckboxField::create('ShowTitle', 'Show the title of this series')->setDescription('Useful when you dont want to group a series or give it a title so that it doesnt fall back the to "untitled series" string.');            
+            
             $yAxisSet = ($this->ElementParent()->Series()->count());
             $yAxisGroup = false;
             if ($yAxisSet > 0) {
@@ -213,7 +227,7 @@ use SilverStripe\Security\Security;
                     $SeriesType,
                     $Visible
                     )->setTitle('Series Attributes'));
-            $fields->addFieldToTab('Root.Main', CompositeField::create($ShowYAxis, $ShowYAxisPosition, $yAxisGroup)->setTitle('Y Axis'));
+            $fields->addFieldToTab('Root.Main', CompositeField::create($ShowYAxis, $ShowTitle, $ShowYAxisPosition, $yAxisGroup)->setTitle('Y Axis'));
 
             $fields->addFieldToTab('Root.Main', CompositeField::create($MarkerNotes, $Marker, $MarkerSymbol)->setTitle('Series marker'));
             return $fields;
