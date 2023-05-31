@@ -57,7 +57,7 @@ use SilverStripe\Security\Security;
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
             'VisibleNice' => 'Visible',
-            'yAxis' => 'yAxis group'
+            //'yAxis' => 'yAxis group'
         ];
         
         private static $default_sort = 'SeriesOrder ASC';
@@ -176,21 +176,21 @@ use SilverStripe\Security\Security;
 
             $ShowTitle = CheckboxField::create('ShowTitle', 'Show the title of this series')->setDescription('Useful when you dont want to group a series or give it a title so that it doesnt fall back the to "untitled series" string.');            
             
-            $yAxisSet = ($this->ElementParent()->Series()->count());
+            //$yAxisSet = ($this->ElementParent()->Series()->count());
             $yAxisGroup = false;
-            if ($yAxisSet > 0) {
-                $c = 0;
-                $yAxisGroupList = [];
-               $c = 1;
-                foreach($this->ElementParent()->Series() as $k => $v) {
-                    $yAxisGroupList[$c - 1] = $v->SeriesTitle();
-                    
-                    $c++;
-                }
-
-                $yAxisGroup = DropdownField::create('yAxis', 'Add to a Y axis group', $yAxisGroupList)->setEmptyString('(none)');
-                $yAxisGroup->displayIf('ShowYAxis')->isChecked();
-            }            
+//            if ($yAxisSet > 0) {
+//                $c = 0;
+//                $yAxisGroupList = [];
+//               $c = 1;
+//                foreach($this->ElementParent()->Series() as $k => $v) {
+//                    $yAxisGroupList[$c - 1] = $v->SeriesTitle();
+//                    
+//                    $c++;
+//                }
+//
+//                $yAxisGroup = DropdownField::create('yAxis', 'Add to a Y axis group', $yAxisGroupList)->setEmptyString('(none)');
+//                $yAxisGroup->displayIf('ShowYAxis')->isChecked();
+//            }            
             
             $Visible = CheckboxField::create('Visible', 'Visible');
             $Visible->setDescription('Sets the initial visibility of the series. uncheck this to have the series disabled when the chart first loads.');

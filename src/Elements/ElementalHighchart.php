@@ -27,12 +27,6 @@ use SilverStripe\View\Parsers\ShortcodeParser;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use Symbiote\MultiValueField\Fields\MultiValueTextField;
 use UncleCheese\DisplayLogic\Forms\Wrapper;
-use function Safe\fclose;
-use function Safe\file_get_contents;
-use function Safe\fopen;
-use function Safe\json_encode;
-use function Safe\preg_replace;
-
     class ElementalHighchart extends BaseElement {
 
         public function StoredNonce() {
