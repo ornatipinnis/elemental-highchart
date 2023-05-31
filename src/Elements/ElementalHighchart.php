@@ -283,9 +283,9 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                     if ($s->ShowYAxis == true && $s->ShowTitle) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
                         //$chart->series[$c]['yAxis'] = $c;
-                    if(!empty($s->yAxis)) {
-                        $chart->series[$c]['yAxis'] = (int)$s->yAxis;
-                    }                               
+//                    if(!empty($s->yAxis)) {
+//                        $chart->series[$c]['yAxis'] = (int)$s->yAxis;
+//                    }                               
                     }
 
                     if ($s->Marker == true && in_array($s->SeriesType, ['line', 'spline', 'area', 'areaspline'])) {
