@@ -266,7 +266,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                     }
                     $chart->series[$c] = [
                         'type' => $s->SeriesType,
-                        //'id' => 'id' . $c,
+                        'id' => 'id' . $c,
                         'marker' => [
                             'enabled' => false
                         ],
@@ -282,7 +282,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
 
                     if ($s->ShowYAxis == true && $s->ShowTitle) {
                         $chart->yAxis[$c]['title']['text'] = ($s->SeriesTitle() ? $s->SeriesTitle() : false);
-                        //$chart->series[$c]['yAxis'] = $c;
+                        $chart->series[$c]['yAxis'] = $c;
 //                    if(!empty($s->yAxis)) {
 //                        $chart->series[$c]['yAxis'] = (int)$s->yAxis;
 //                    }                               
