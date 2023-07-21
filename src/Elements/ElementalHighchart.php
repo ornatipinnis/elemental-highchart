@@ -266,7 +266,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                     }
                     $chart->series[$c] = [
                         'type' => $s->SeriesType,
-                        'id' => 'id' . $c,
+                        //'id' => 'id' . $c,
                         'marker' => [
                             'enabled' => false
                         ],
