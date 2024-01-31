@@ -1,4 +1,4 @@
-# Elemental highcharts
+# Elemental highcharts for Silverstripe 4.x
 This elemental block allows you to embed a Highchart or Highchart Stock chart into your elemental area.
 
 ## Installation
