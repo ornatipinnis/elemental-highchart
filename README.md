@@ -1,4 +1,4 @@
-# Elemental highcharts for Silverstripe 5.x
+# Elemental highcharts for Silverstripe 4.x
 This elemental block allows you to embed a Highchart or Highchart Stock chart into your elemental area.
 
 ## Installation
@@ -8,9 +8,9 @@ This elemental block allows you to embed a Highchart or Highchart Stock chart in
 The default template uses [fontawesome v4](https://fontawesome.com/v4/) for chart control icons.
 
 The follwing Silverstripe modules are also required in addition to the core framework:
-- [dnadesign/silverstripe-elemental](https://github.com/silverstripe/silverstripe-elemental): ^5
-- [silverstripe/display-logic](https://github.com/unclecheese/silverstripe-display-logic) ^3    
-- [symbiote/silverstripe-multivaluefield](https://github.com/symbiote/silverstripe-multivaluefield) ^6
+- [dnadesign/silverstripe-elemental](https://github.com/silverstripe/silverstripe-elemental): ^4
+- [silverstripe/display-logic](https://github.com/unclecheese/silverstripe-display-logic) ^2    
+- [symbiote/silverstripe-multivaluefield](https://github.com/symbiote/silverstripe-multivaluefield) ^5
 
 ## Templates
 You can override the default template by copying `/templates/aetchell/Highcharts/Elemental/ElementaHighchart.ss` to your own theme or the app folder. Be sure to maintain the directory structure due to the namespace: `/aetchell/Highcharts/Elemental/ElementaHighchart.ss`
