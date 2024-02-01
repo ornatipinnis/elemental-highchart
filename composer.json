@@ -16,9 +16,9 @@
         }
     ],
     "require": {
-        "dnadesign/silverstripe-elemental": "^5",
-        "silverstripe/display-logic": "^3",
-        "symbiote/silverstripe-multivaluefield": "^6"
+        "dnadesign/silverstripe-elemental": "^4",
+        "silverstripe/display-logic": "^2",
+        "symbiote/silverstripe-multivaluefield": "^5"
     },
     "config": {
         "process-timeout": 600
