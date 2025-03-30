@@ -56,6 +56,8 @@ namespace aetchell\Elemental\Blocks {
         public static function HighchartVersions() {
             return [
                 '0' => 'Latest',
+                '12.0' => '12.x.x',
+                '11.0' => '11.x.x',
                 '10.0' => '10.x.x',
                 '9.0' => '9.x.x',
                 '8.0' => '8.x.x',
