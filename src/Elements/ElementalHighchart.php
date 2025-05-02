@@ -35,7 +35,34 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 return $con->StoredNonce();    
             }
             return false;
-        }         
+        }  
+
+
+        /**
+        * Overriding original in BaseElement because "$this->forTemplate()" results in a "No current controller available"
+        * error when indexing (via the SS search service/elastic) so manually telling it what to index.
+        *
+        * Note: this has to be placed in the ElementHighchart class because if it is in the extension, it
+        * isn't used. It still defaults to the BaseElement getContentForSearchIndex().
+        *
+        * @return string
+        */
+        public function getContentForSearchIndex(): string
+        {
+            $content = [];
+        
+            // Use plain fields or relations instead of "$this->forTemplate()"
+            if ($this->hasField('Title') && $this->hasField('ShowTitle') && $this->ShowTitle) {
+                $content[] = $this->Title ?? '';
+            }
+            $content[] = $this->ChartCaption ?? '';
+            $content[] = $this->ChartTitle ?? '';
+            $content[] = $this->ChartSubtitle ?? '';
+            $content[] = $this->parseHTMLForSearch($this->Content ?? '');
+            
+            return implode(' ', array_filter($content));
+        }
+        
         
         
         private static $singular_name = 'Highchart';
