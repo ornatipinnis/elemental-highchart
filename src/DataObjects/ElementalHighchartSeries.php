@@ -2,25 +2,24 @@
 
 namespace aetchell\Highcharts\Elemental {
 
-use aetchell\Highcharts\Elemental\ElementalHighchart;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\CompositeField;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\FieldGroup;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\OptionsetField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataObject;
-use SilverStripe\ORM\FieldType\DBField;
-use SilverStripe\Security\Permission;
-use SilverStripe\Security\Security;
+    use aetchell\Highcharts\Elemental\ElementalHighchart;
+    use SilverStripe\Forms\CheckboxField;
+    use SilverStripe\Forms\CompositeField;
+    use SilverStripe\Forms\DropdownField;
+    use SilverStripe\Forms\FieldGroup;
+    use SilverStripe\Forms\LiteralField;
+    use SilverStripe\Forms\OptionsetField;
+    use SilverStripe\Forms\TextField;
+    use SilverStripe\ORM\DataObject;
+    use SilverStripe\ORM\FieldType\DBField;
+    use SilverStripe\Security\Permission;
+    use SilverStripe\Security\Security;
 
     class ElementalHighchartSeries extends DataObject {
 
         private static $db = [
             'Title' => 'Varchar(255)',
             'SeriesType' => 'Varchar(50)',
-            //'Label' => 'Varchar(255)',
             'ValuePrefix' => 'Varchar(20)',
             'ValueSuffix' => 'Varchar(20)',
             'ShowYAxis' => 'Boolean',
@@ -53,11 +52,9 @@ use SilverStripe\Security\Security;
             'SeriesType' => 'Series type',
             'ShowYAxisNice' => 'Show Y axis',
             'ShowTitleNice' => 'Show Y axis title',
-            //'LabelNice' => 'Label',
             'ValuePrefix' => 'Value prefix',
             'ValueSuffix' => 'Value suffix',
             'VisibleNice' => 'Visible',
-            //'yAxis' => 'yAxis group'
         ];
 
         private static $default_sort = 'SeriesOrder ASC';
@@ -97,14 +94,6 @@ use SilverStripe\Security\Security;
             }
             return DBField::create_field('HTMLText', '<i>none</i>');
         }
-
-        /* no longer required */
-//        public function LabelNice() {
-//            if ($this->Label == true) {
-//                return $this->Label;
-//            }
-//            return DBField::create_field('HTMLText', '<i>none</i>');
-//        }
 
         public function ShowYAxisNice() {
             if ($this->ShowYAxis == true) {
@@ -146,13 +135,11 @@ use SilverStripe\Security\Security;
             $fields->removeByName('ElementParentID');
             $fields->removeByName('Title');
             $fields->removeByName('SeriesType');
-            //$fields->removeByName('Label');
             $fields->removeByName('ValuePrefix');
             $fields->removeByName('ValueSuffix');
             $fields->removeByName('ShowYAxis');
             $fields->removeByName('ShowYAxisPosition');
             $fields->removeByName('ConnectNulls');
-
             $fields->removeByName('Marker');
             $fields->removeByName('MarkerSymbol');
             $fields->removeByName('Visible');
@@ -177,21 +164,7 @@ use SilverStripe\Security\Security;
 
             $ShowTitle = CheckboxField::create('ShowTitle', 'Show the title of this series')->setDescription('Useful when you dont want to group a series or give it a title so that it doesnt fall back the to "untitled series" string.');
 
-            //$yAxisSet = ($this->ElementParent()->Series()->count());
             $yAxisGroup = false;
-//            if ($yAxisSet > 0) {
-//                $c = 0;
-//                $yAxisGroupList = [];
-//               $c = 1;
-//                foreach($this->ElementParent()->Series() as $k => $v) {
-//                    $yAxisGroupList[$c - 1] = $v->SeriesTitle();
-//
-//                    $c++;
-//                }
-//
-//                $yAxisGroup = DropdownField::create('yAxis', 'Add to a Y axis group', $yAxisGroupList)->setEmptyString('(none)');
-//                $yAxisGroup->displayIf('ShowYAxis')->isChecked();
-//            }
 
             $Visible = CheckboxField::create('Visible', 'Visible');
             $Visible->setDescription('Sets the initial visibility of the series. uncheck this to have the series disabled when the chart first loads.');
@@ -201,9 +174,9 @@ use SilverStripe\Security\Security;
             $Marker = CheckboxField::create('Marker', 'Show data point markers');
             $Marker->setDescription('Show markers on each data point. Markers are only available for certain series types such as "line" and "spline"');
             $Marker->displayIf('SeriesType')->isEqualTo('line')
-                    ->orIf('SeriesType')->isEqualTo('spline')
-                    ->orIf('SeriesType')->isEqualTo('areaspline')
-                    ->orIf('SeriesType')->isEqualTo('area');
+                ->orIf('SeriesType')->isEqualTo('spline')
+                ->orIf('SeriesType')->isEqualTo('areaspline')
+                ->orIf('SeriesType')->isEqualTo('area');
             $MarkerSymbol = DropdownField::create('MarkerSymbol', 'Marker symbol')->setSource($this->dbObject('MarkerSymbol')->enumValues());
             $MarkerSymbol->setDescription('Which symbol to use for the data point marker.');
             $MarkerSymbol->displayIf('Marker')->isChecked();
@@ -219,15 +192,14 @@ use SilverStripe\Security\Security;
             /**
              * Remove series label for now
              */
-            //$fields->addFieldToTab('Root.Main', $Label);
             $fields->addFieldToTab('Root.Main', CompositeField::create(FieldGroup::create(
-                                    $ValuePrefix,
-                                    $ValueSuffix
-                    ))->setTitle('Series data formatting'));
+                $ValuePrefix,
+                $ValueSuffix
+            ))->setTitle('Series data formatting'));
             $fields->addFieldToTab('Root.Main', CompositeField::create(
-                    $SeriesType,
-                    $Visible
-                    )->setTitle('Series Attributes'));
+                $SeriesType,
+                $Visible
+            )->setTitle('Series Attributes'));
             $fields->addFieldToTab('Root.Main', CompositeField::create($ShowYAxis, $ShowTitle, $ShowYAxisPosition, $yAxisGroup)->setTitle('Y Axis'));
 
             $fields->addFieldToTab('Root.Main', CompositeField::create($MarkerNotes, $Marker, $MarkerSymbol)->setTitle('Series marker'));

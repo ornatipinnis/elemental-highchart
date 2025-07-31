@@ -2,55 +2,55 @@
 
 namespace aetchell\Highcharts\Elemental {
 
-use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
-use aetchell\Highcharts\Libraries\HighchartsLibraries;
-use DNADesign\Elemental\Models\BaseElement;
-use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Assets\File;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\CompositeField;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\FieldGroup;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\NumericField;
-use SilverStripe\Forms\OptionsetField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\GraphQL\Controller;
-use SilverStripe\SiteConfig\SiteConfig;
-use SilverStripe\View\Parsers\ShortcodeParser;
-use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
-use Symbiote\MultiValueField\Fields\MultiValueTextField;
-use UncleCheese\DisplayLogic\Forms\Wrapper;
+    use aetchell\Highcharts\Elemental\ElementalHighchartSeries;
+    use aetchell\Highcharts\Libraries\HighchartsLibraries;
+    use DNADesign\Elemental\Models\BaseElement;
+    use SilverStripe\AssetAdmin\Forms\UploadField;
+    use SilverStripe\Assets\File;
+    use SilverStripe\Forms\CheckboxField;
+    use SilverStripe\Forms\CompositeField;
+    use SilverStripe\Forms\DropdownField;
+    use SilverStripe\Forms\FieldGroup;
+    use SilverStripe\Forms\FieldList;
+    use SilverStripe\Forms\GridField\GridField;
+    use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+    use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+    use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+    use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+    use SilverStripe\Forms\LiteralField;
+    use SilverStripe\Forms\NumericField;
+    use SilverStripe\Forms\OptionsetField;
+    use SilverStripe\Forms\TextField;
+    use SilverStripe\GraphQL\Controller;
+    use SilverStripe\SiteConfig\SiteConfig;
+    use SilverStripe\View\Parsers\ShortcodeParser;
+    use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+    use Symbiote\MultiValueField\Fields\MultiValueTextField;
+    use UncleCheese\DisplayLogic\Forms\Wrapper;
     class ElementalHighchart extends BaseElement {
 
         public function StoredNonce() {
             $con = Controller::curr();
             if(method_exists($con, 'StoredNonce')) {
-                return $con->StoredNonce();    
+                return $con->StoredNonce();
             }
             return false;
-        }  
+        }
 
 
         /**
-        * Overriding original in BaseElement because "$this->forTemplate()" results in a "No current controller available"
-        * error when indexing (via the SS search service/elastic) so manually telling it what to index.
-        *
-        * Note: this has to be placed in the ElementHighchart class because if it is in the extension, it
-        * isn't used. It still defaults to the BaseElement getContentForSearchIndex().
-        *
-        * @return string
-        */
+         * Overriding original in BaseElement because "$this->forTemplate()" results in a "No current controller available"
+         * error when indexing (via the SS search service/elastic) so manually telling it what to index.
+         *
+         * Note: this has to be placed in the ElementHighchart class because if it is in the extension, it
+         * isn't used. It still defaults to the BaseElement getContentForSearchIndex().
+         *
+         * @return string
+         */
         public function getContentForSearchIndex(): string
         {
             $content = [];
-        
+
             // Use plain fields or relations instead of "$this->forTemplate()"
             if ($this->hasField('Title') && $this->hasField('ShowTitle') && $this->ShowTitle) {
                 $content[] = $this->Title ?? '';
@@ -59,12 +59,10 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             $content[] = $this->ChartTitle ?? '';
             $content[] = $this->ChartSubtitle ?? '';
             $content[] = $this->parseHTMLForSearch($this->Content ?? '');
-            
+
             return implode(' ', array_filter($content));
         }
-        
-        
-        
+
         private static $singular_name = 'Highchart';
         private static $plural_name = 'Highcharts';
         private static $icon = 'font-icon-chart-line';
@@ -179,49 +177,49 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
          */
         public function chartConfig() {
             $chart = (object) [
-                        'chart' => ['type' => $this->DefaultSeries, 'animation' => true],
-                        'credits' => ['enabled' => false],
-                        'title' => ['text' => $this->ChartTitle],
-                        'tooltip' => [
-                            'shared' => true,
-                            'outside' => true,
-                            'style' => ['zIndex' => 9999],
-                            //'useHTML' => true,
-                            //'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
-                            'valuePrefix' => ($this->ValuePrefix ? $this->ValuePrefix : ''),
-                            'valueSuffix' => ($this->ValueSuffix ? $this->ValueSuffix : '')
-                        ],
-                        'data' => ['enablePolling' => false, 'dataRefreshRate' => 60],
-                        'series' => [],
-                        'plotOptions' => [
-                            'series' => [
-                                'allowPointSelect' => true,
-                                'states' => [
-                                    'select' => [
-                                        'enabled' => true
-                                    ]
-                                ],
-                                'marker' => [
-                                    'enabled' => false
-                                ],
-                                'connectNulls' => $this->ConnectNulls == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline', 'pie']) ? true : false
+                'chart' => ['type' => $this->DefaultSeries, 'animation' => true],
+                'credits' => ['enabled' => false],
+                'title' => ['text' => $this->ChartTitle],
+                'tooltip' => [
+                    'shared' => true,
+                    'outside' => true,
+                    'style' => ['zIndex' => 9999],
+                    //'useHTML' => true,
+                    //'pointFormat' => '<b>{point.series.name} <b><br>{point.x:,.0f}  {point.y:,.0f}',
+                    'valuePrefix' => ($this->ValuePrefix ? $this->ValuePrefix : ''),
+                    'valueSuffix' => ($this->ValueSuffix ? $this->ValueSuffix : '')
+                ],
+                'data' => ['enablePolling' => false, 'dataRefreshRate' => 60],
+                'series' => [],
+                'plotOptions' => [
+                    'series' => [
+                        'allowPointSelect' => true,
+                        'states' => [
+                            'select' => [
+                                'enabled' => true
                             ]
                         ],
-                        'exporting' => [
-                            'enabled' => ($this->enableExporting == true ? true : false)
+                        'marker' => [
+                            'enabled' => false
                         ],
-                        'xAxis' => [
-                            'title' => [
-                                'text' => false,
-                            ]
-                            /**
-                             * Todo
-                             * Add this as a config value on the elemental block
-                             * linear, logarithmic, datetime or category
-                             * https://api.highcharts.com/highcharts/xAxis.type
-                             */
-                            //,'type' => 'category'
-                        ],
+                        'connectNulls' => $this->ConnectNulls == true && in_array($this->DefaultSeries, ['line', 'spline', 'area', 'areaspline', 'pie']) ? true : false
+                    ]
+                ],
+                'exporting' => [
+                    'enabled' => ($this->enableExporting == true ? true : false)
+                ],
+                'xAxis' => [
+                    'title' => [
+                        'text' => false,
+                    ]
+                    /**
+                     * Todo
+                     * Add this as a config value on the elemental block
+                     * linear, logarithmic, datetime or category
+                     * https://api.highcharts.com/highcharts/xAxis.type
+                     */
+                    //,'type' => 'category'
+                ],
             ];
 
             if ($this->DefaultXAxisTitle !== '') {
@@ -265,7 +263,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             }
 
             if (
-                    $this->allowDataSourcePolling() == true && $this->DataSource == 'API' && $this->DefaultSeries !== 'pie'
+                $this->allowDataSourcePolling() == true && $this->DataSource == 'API' && $this->DefaultSeries !== 'pie'
             ) {
                 $chart->data['enablePolling'] = true;
                 $chart->data['dataRefreshRate'] = (int) $this->EnablePolling;
@@ -284,7 +282,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
              * No series config for pie charts
              */
             if (
-                    $this->Series()->count() > 0 && $this->DefaultSeries !== 'pie'
+                $this->Series()->count() > 0 && $this->DefaultSeries !== 'pie'
             ) {
                 $c = 0;
                 foreach ($this->Series() as $s) {
@@ -312,7 +310,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                         $chart->series[$c]['yAxis'] = $c;
 //                    if(!empty($s->yAxis)) {
 //                        $chart->series[$c]['yAxis'] = (int)$s->yAxis;
-//                    }                               
+//                    }
                     }
 
                     if ($s->Marker == true && in_array($s->SeriesType, ['line', 'spline', 'area', 'areaspline'])) {
@@ -326,7 +324,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
 
                     if ($s->ValueSuffix) {
                         $chart->series[$c]['tooltip']['valueSuffix'] = $s->ValueSuffix;
-                    }               
+                    }
 
                     $c++;
                 }
@@ -393,7 +391,6 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $fields->removeByName('AllowFullscreen');
                 $fields->removeByName('ConnectNulls');
                 $fields->removeByName('ZoomType');
-                //$fields->removeByName('History'); // this one seems to have issues
                 $fields->removeByName('ValuePrefix');
                 $fields->removeByName('ValueSuffix');
                 $fields->removeByName('ChartHeight');
@@ -422,12 +419,12 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $ChartTitle = TextField::create('ChartTitle', 'Chart title');
 
                 $DefaultSeriesTitle = TextField::create('DefaultSeriesTitle', 'Y axis title')
-                        ->setAttribute('placeholder', 'Rainfall')
-                        ->setDescription('The default Y axis title, this appears next to the Y axis, for example "Rainfall".');
+                    ->setAttribute('placeholder', 'Rainfall')
+                    ->setDescription('The default Y axis title, this appears next to the Y axis, for example "Rainfall".');
 
                 $DefaultXAxisTitle = TextField::create('DefaultXAxisTitle', 'X axis title')
-                        ->setAttribute('placeholder', 'Years')
-                        ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
+                    ->setAttribute('placeholder', 'Years')
+                    ->setDescription('The default X axis title, this appears above the chart legend on the X axis.');
                 $ValuePrefix = TextField::create('ValuePrefix', 'Value prefix');
                 $ValueSuffix = TextField::create('ValueSuffix', 'Value suffix');
 
@@ -502,19 +499,19 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $ConnectNulls = CheckboxField::create('ConnectNulls', 'Connect null points');
                 $ConnectNulls->setDescription('Whether to connect a graph line across null points, or render a gap between the two points on either side of the null. This only works on "line", "spline", "area", "areaspline" and "pie" series');
                 $ConnectNulls->displayIf('DefaultSeries')->isEqualTo('line')
-                        ->orIf('DefaultSeries')->isEqualTo('spline')
-                        ->orIf('DefaultSeries')->isEqualTo('area')
-                        ->orIf('DefaultSeries')->isEqualTo('areaspline')
-                        ->orIf('DefaultSeries')->isEqualTo('pie');
-                
+                    ->orIf('DefaultSeries')->isEqualTo('spline')
+                    ->orIf('DefaultSeries')->isEqualTo('area')
+                    ->orIf('DefaultSeries')->isEqualTo('areaspline')
+                    ->orIf('DefaultSeries')->isEqualTo('pie');
+
                 $HighchartColoursOverride = OptionsetField::create('HighchartColoursOverride', 'Chart colours')->setSource($this->dbObject('HighchartColoursOverride')->enumValues())
-                        ->setDescription('Use either the global colour array from settings > highcharts or add a new colour array here that will be used on this chart only.');
-                
+                    ->setDescription('Use either the global colour array from settings > highcharts or add a new colour array here that will be used on this chart only.');
+
                 $HighchartColours = MultiValueTextField::create('HighchartColours', 'Series colours')
-                        ->setAttribute('placeholder', '#ff0000');
+                    ->setAttribute('placeholder', '#ff0000');
                 $HighchartColours->setDescription('Add one or more hex formatted colours to this list to use in your charts. for example "#ff0000"');
-                
-                
+
+
                 //DataOriginURL
                 $DataSourceURL = TextField::create('DataSourceURL', 'Data source URL')->setDescription('Optionally add a URL here for the source of the data.');
                 //$HighchartColours->displayIf('HighchartColoursOverride')->isEqualTo('chart');
@@ -532,9 +529,9 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
 
                 $PieInnerSize->displayIf('DefaultSeries')->isEqualTo('pie');
                 $MarkerNotes->displayIf('DefaultSeries')->isEqualTo('line')
-                        ->orIf('DefaultSeries')->isEqualTo('spline')
-                        ->orIf('DefaultSeries')->isEqualTo('areaspline')
-                        ->orIf('DefaultSeries')->isEqualTo('area');
+                    ->orIf('DefaultSeries')->isEqualTo('spline')
+                    ->orIf('DefaultSeries')->isEqualTo('areaspline')
+                    ->orIf('DefaultSeries')->isEqualTo('area');
 
                 $MarkerSymbol->displayIf('Marker')->isChecked();
                 /**
@@ -544,34 +541,34 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $fields->addFieldToTab('Root.Main', $ChartCaption);
 
                 $fields->addFieldToTab('Root.ChartConfig',
-                        CompositeField::create(FieldGroup::create(
-                                        $LibType,
-                                        $DefaultSeries),
-                                $ChartDesc,
-                                FieldGroup::create(
-                                        $CSSClass,
-                                        $ChartHeight
-                                ),
-                                $ChartStyleDesc,
-                                $ChartTitle,
-                                $ChartSubtitle
-                        )->setColumnCount(2)->setTitle('Chart config')
+                    CompositeField::create(FieldGroup::create(
+                        $LibType,
+                        $DefaultSeries),
+                        $ChartDesc,
+                        FieldGroup::create(
+                            $CSSClass,
+                            $ChartHeight
+                        ),
+                        $ChartStyleDesc,
+                        $ChartTitle,
+                        $ChartSubtitle
+                    )->setColumnCount(2)->setTitle('Chart config')
                 );
 
                 $fields->addFieldToTab('Root.ChartConfig', CompositeField::create(
-                                $EnableSeriesStacking,
-                                $SeriesStacking,
-                                $EnableExporting,
-                                $AllowFullscreen,
-                                $ConnectNulls,
-                                $Navigator,
-                                $RangeSelector,
-                                $ZoomType,
-                                $PieInnerSize,
-                                $MarkerNotes,
-                                $Marker,
-                                $MarkerSymbol
-                        )->setTitle('Chart attributes'));
+                    $EnableSeriesStacking,
+                    $SeriesStacking,
+                    $EnableExporting,
+                    $AllowFullscreen,
+                    $ConnectNulls,
+                    $Navigator,
+                    $RangeSelector,
+                    $ZoomType,
+                    $PieInnerSize,
+                    $MarkerNotes,
+                    $Marker,
+                    $MarkerSymbol
+                )->setTitle('Chart attributes'));
 
                 $fields->addFieldToTab('Root.ChartData', $DataSource);
                 $fields->addFieldToTab('Root.ChartData', $RemoteDataSource);
@@ -579,13 +576,13 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $fields->addFieldToTab('Root.ChartData', $File);
                 $fields->addFieldToTab('Root.ChartData', $DataSourceURL);
                 $fields->addFieldToTab('Root.ChartData', CompositeField::create(FieldGroup::create(
-                                        $DefaultXAxisTitle,
-                                        $DefaultSeriesTitle,
-                                        $ValuePrefix,
-                                        $ValueSuffix
-                                ),
-                                $SeriesConfigHelp
-                        )->setTitle('Default series formatting'));
+                    $DefaultXAxisTitle,
+                    $DefaultSeriesTitle,
+                    $ValuePrefix,
+                    $ValueSuffix
+                ),
+                    $SeriesConfigHelp
+                )->setTitle('Default series formatting'));
 
                 $fields->addFieldToTab('Root.ChartData', $HighchartColoursOverride);
                 $fields->addFieldToTab('Root.ChartData', Wrapper::create($HighchartColours)->hideIf('HighchartColoursOverride')->isEqualTo('Global')->end());
@@ -628,7 +625,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
              * Get data from filesource
              */
             if (
-                    $this->DataSource == 'CSV' && $this->File() && file_exists(BASE_PATH . '/public' . $this->File()->Url)
+                $this->DataSource == 'CSV' && $this->File() && file_exists(BASE_PATH . '/public' . $this->File()->Url)
             ) {
                 $data = $this->File()->Url;
 
@@ -636,7 +633,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                  * get data from API endpoint
                  */
             } else if (
-                    $this->RemoteDataSource && $this->DataSource == 'API'
+                $this->RemoteDataSource && $this->DataSource == 'API'
             ) {
                 $data = $this->RemoteDataSource;
             }
@@ -649,8 +646,8 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
                 $row = 0;
                 $dataArray = array();
                 $dataFilePath = (
-                        $this->DataSource == 'CSV' ? BASE_PATH . '/public' . $this->SeriesData() : $this->SeriesData()
-                        );
+                $this->DataSource == 'CSV' ? BASE_PATH . '/public' . $this->SeriesData() : $this->SeriesData()
+                );
                 if (($handle = fopen($dataFilePath, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                         $num = count($data);
@@ -722,7 +719,7 @@ use UncleCheese\DisplayLogic\Forms\Wrapper;
             $blockSchema = parent::provideBlockSchema();
             $blockSchema['content'] = $this->Title . ' - ' . $this->LibType . '/' . $this->DefaultSeries . ' - datasource: ' . $this->DataSource;
             return $blockSchema;
-        }       
+        }
 
     }
 
