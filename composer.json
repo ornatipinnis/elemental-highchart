@@ -19,7 +19,7 @@
         "dnadesign/silverstripe-elemental": "^6.0",
         "unclecheese/display-logic": "^4.0",
         "symbiote/silverstripe-multivaluefield": "^6.0"
-    }
+    },
     "config": {
         "process-timeout": 600
     },
