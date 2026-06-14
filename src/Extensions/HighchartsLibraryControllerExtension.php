@@ -3,10 +3,10 @@
 namespace aetchell\Highcharts\Extensions {
 
 use aetchell\Highcharts\Libraries\HighchartsLibraries;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\SiteConfig\SiteConfig;
 
-    class HighchartsLibraryControllerExtension extends DataExtension {
+    class HighchartsLibraryControllerExtension extends Extension {
 
         public function onAfterInit() {
             $SiteConfig = SiteConfig::current_site_config();
