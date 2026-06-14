@@ -603,7 +603,7 @@ namespace aetchell\Highcharts\Elemental {
          */
         public function getLibTypeClass() {
             switch ($this->LibType) {
-                case 'stock';
+                case 'stock':
                     $r = 'stockChart';
                     break;
                 default:
