@@ -6,10 +6,10 @@ namespace aetchell\Elemental\Blocks {
     use SilverStripe\Forms\CheckboxSetField;
     use SilverStripe\Forms\DropdownField;
     use SilverStripe\Forms\FieldList;
-    use SilverStripe\ORM\DataExtension;
     use Symbiote\MultiValueField\Fields\MultiValueTextField;
+    use SilverStripe\Core\Extension;
 
-    class HighchartConfigExtension extends DataExtension {
+    class HighchartConfigExtension extends Extension {
 
         private static $db = [
             'HighchartLibraryAllPages' => 'Boolean',
