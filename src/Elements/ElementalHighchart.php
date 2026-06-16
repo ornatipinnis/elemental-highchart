@@ -21,7 +21,7 @@ namespace aetchell\Highcharts\Elemental {
     use SilverStripe\Forms\NumericField;
     use SilverStripe\Forms\OptionsetField;
     use SilverStripe\Forms\TextField;
-    use SilverStripe\GraphQL\Controller;
+    use SilverStripe\Control\Controller;
     use SilverStripe\SiteConfig\SiteConfig;
     use SilverStripe\View\Parsers\ShortcodeParser;
     use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
